@@ -3,16 +3,15 @@
 # ─────────────────────────────────────────────
 title: "Mathematics Seminar Series"
 description: "A PhD-led seminar series exploring advanced topics in mathematics."
-url: "https://yourusername.github.io"   # ← replace with your GitHub Pages URL
-baseurl: ""                             # leave empty if using username.github.io
-
+url: "https://snu-phd-math-seminar.github.io"  
+baseurl: ""                            
 # ─────────────────────────────────────────────
 # Author / Department
 # ─────────────────────────────────────────────
 author:
   name: "Department of Mathematics"
-  institution: "Your University Name"   # ← replace
-  email: "seminar@example.ac.in"        # ← replace with contact email
+  institution: "Shiv Nadar Institute of Eminence"   
+  email: "as197@snu.edu.in"        
 
 # ─────────────────────────────────────────────
 # Build Settings
