@@ -1,6 +1,6 @@
 # Mathematics Seminar Series — Site Maintainer Guide
 
-Personal reference for updating the seminar website hosted at `https://as197-dsa.github.io`.
+Personal reference for updating the seminar website hosted at `https://snu-phd-math-seminar.github.io`.
 
 ---
 
