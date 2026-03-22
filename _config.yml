@@ -1,0 +1,57 @@
+# ─────────────────────────────────────────────
+# Site Identity
+# ─────────────────────────────────────────────
+title: "Mathematics Seminar Series"
+description: "A PhD-led seminar series exploring advanced topics in mathematics."
+url: "https://snu-phd-math-seminar.github.io"   
+baseurl: ""                           
+
+# ─────────────────────────────────────────────
+# Author / Department
+# ─────────────────────────────────────────────
+author:
+  name: "Department of Mathematics"
+  institution: "Shiv Nadar Institute of Eminence"   
+  email: "as197@snu.edu.in"    
+
+# ─────────────────────────────────────────────
+# Build Settings
+# ─────────────────────────────────────────────
+theme: null          # we use a custom index.html, no Jekyll theme needed
+markdown: kramdown   # default GitHub Pages Markdown processor
+
+kramdown:
+  math_engine: mathjax   # enables LaTeX in .md files if you add them later
+
+# ─────────────────────────────────────────────
+# Plugins (all safe for GitHub Pages)
+# ─────────────────────────────────────────────
+plugins:
+  - jekyll-seo-tag        # adds <meta> tags for search engines automatically
+  - jekyll-sitemap        # generates sitemap.xml for search indexing
+
+# ─────────────────────────────────────────────
+# SEO (used by jekyll-seo-tag)
+# ─────────────────────────────────────────────
+twitter:
+  username:               # optional — add if your dept has a Twitter/X handle
+
+# ─────────────────────────────────────────────
+# File Exclusions (not published to the site)
+# ─────────────────────────────────────────────
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - "*.sh"
+  - .DS_Store
+
+# ─────────────────────────────────────────────
+# Defaults (useful if you later add .md posts)
+# ─────────────────────────────────────────────
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: null   # no layout since we use standalone index.html
