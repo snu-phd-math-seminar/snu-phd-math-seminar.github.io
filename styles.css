@@ -284,10 +284,43 @@ section h2 {
 .organizer-card a:hover {
   text-decoration: underline;
 }
-.advisor {
+/* ── Advisor Card ── */
+.advisor-card {
+  border: 1px solid var(--rule);
+  padding: 1.5rem;
+  background: var(--paper-warm);
   margin-top: 2.5rem;
-  font-size: 0.9rem;
+  max-width: 400px;
+}
+
+.advisor-card .initials {
+  width: 42px;
+  height: 42px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.advisor-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.advisor-card p {
+  font-size: 0.875rem;
   color: var(--ink-muted);
+}
+
+.advisor-sub {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  margin-top: 0.2rem;
 }
 .contact-note {
   margin-top: 1rem;
