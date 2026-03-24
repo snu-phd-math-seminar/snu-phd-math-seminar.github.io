@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Mathematics Seminar Series</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <!-- MathJax for LaTeX rendering -->
+
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
@@ -14,420 +21,8 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-  <style>
-    :root {
-      --ink: #1a1614;
-      --ink-muted: #5a504a;
-      --ink-faint: #9a8f87;
-      --paper: #faf8f4;
-      --paper-warm: #f3efe8;
-      --rule: #d8d0c4;
-      --accent: #8b1a1a;
-      --accent-light: #f5ece8;
-      --mono: 'DM Mono', monospace;
-      --serif: 'EB Garamond', Georgia, serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--serif);
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 18px;
-      line-height: 1.75;
-    }
-
-    /* ── Header ── */
-    header {
-      border-bottom: 1px solid var(--rule);
-      padding: 3rem 0 2rem;
-      background: var(--paper);
-    }
-
-    .header-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .series-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-
-    header h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.75rem;
-    }
-
-    .header-meta {
-      color: var(--ink-muted);
-      font-size: 1rem;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .header-meta span::before {
-      content: '· ';
-      color: var(--ink-faint);
-    }
-
-    .header-meta span:first-child::before { content: ''; }
-
-    /* ── Nav ── */
-    nav {
-      background: var(--paper-warm);
-      border-bottom: 1px solid var(--rule);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav ul {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      list-style: none;
-      display: flex;
-      gap: 0;
-    }
-
-    nav a {
-      display: block;
-      padding: 0.85rem 1.1rem;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--ink-muted);
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
-    nav a:hover, nav a.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
-    /* ── Main layout ── */
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 3rem 2rem 6rem;
-    }
-
-    section { margin-bottom: 5rem; }
-
-    section h2 {
-      font-size: 1.1rem;
-      font-family: var(--mono);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 2rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    /* ── Upcoming seminar card (featured) ── */
-    .upcoming-card {
-      border: 1px solid var(--rule);
-      border-left: 4px solid var(--accent);
-      padding: 1.75rem 2rem;
-      background: var(--accent-light);
-      margin-bottom: 3rem;
-    }
-
-    .upcoming-card .tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .upcoming-card h3 {
-      font-size: 1.45rem;
-      font-weight: 500;
-      margin-bottom: 0.4rem;
-      line-height: 1.3;
-    }
-
-    .upcoming-card .speaker {
-      color: var(--ink-muted);
-      font-style: italic;
-      margin-bottom: 0.25rem;
-    }
-
-    .upcoming-card .date-line {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--ink-faint);
-      margin-bottom: 1.2rem;
-    }
-
-    .abstract-box {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--ink);
-    }
-
-    .abstract-box h4 {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 0.75rem;
-    }
-
-    /* ── Past seminars list ── */
-    .seminar-entry {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 0 1.5rem;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .seminar-entry:first-of-type { border-top: 1px solid var(--rule); }
-
-    .seminar-date {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--ink-faint);
-      padding-top: 0.2rem;
-      line-height: 1.5;
-    }
-
-    .seminar-info h3 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 0.2rem;
-    }
-
-    .seminar-info .speaker {
-      font-style: italic;
-      color: var(--ink-muted);
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .seminar-info .topic-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--paper-warm);
-      border: 1px solid var(--rule);
-      color: var(--ink-muted);
-      padding: 2px 8px;
-      display: inline-block;
-      margin-bottom: 0.6rem;
-    }
-
-    details {
-      margin-top: 0.6rem;
-    }
-
-    details summary {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      cursor: pointer;
-      user-select: none;
-      list-style: none;
-    }
-
-    details summary::-webkit-details-marker { display: none; }
-
-    details summary::before {
-      content: '▸ ';
-      font-size: 9px;
-    }
-
-    details[open] summary::before { content: '▾ '; }
-
-    details .detail-body {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--ink);
-      border-left: 2px solid var(--rule);
-      padding-left: 1rem;
-    }
-
-    .notes-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 0.5rem;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .notes-link:hover { border-bottom-color: var(--accent); }
-
-    .notes-link::before { content: '↓ '; }
-
-    /* ── Schedule table ── */
-    .schedule-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
-
-    .schedule-table th {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      text-align: left;
-      padding: 0.6rem 1rem 0.6rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .schedule-table td {
-      padding: 0.85rem 1rem 0.85rem 0;
-      border-bottom: 1px solid var(--rule);
-      vertical-align: top;
-    }
-
-    .schedule-table tr:last-child td { border-bottom: none; }
-
-    .schedule-table .date-cell {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--ink-faint);
-      white-space: nowrap;
-      width: 110px;
-    }
-
-    .schedule-table .tbd {
-      color: var(--ink-faint);
-      font-style: italic;
-    }
-
-    .status-badge {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border: 1px solid;
-    }
-
-    .badge-confirmed {
-      color: #2d5a27;
-      border-color: #a8c8a0;
-      background: #f0f7ee;
-    }
-
-    .badge-upcoming {
-      color: var(--accent);
-      border-color: #d4a0a0;
-      background: var(--accent-light);
-    }
-
-    .badge-tbd {
-      color: var(--ink-faint);
-      border-color: var(--rule);
-      background: var(--paper-warm);
-    }
-
-    /* ── Organizers ── */
-    .organizer-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
-
-    .organizer-card {
-      border: 1px solid var(--rule);
-      padding: 1.25rem;
-    }
-
-    .organizer-card .initials {
-      width: 40px;
-      height: 40px;
-      background: var(--paper-warm);
-      border: 1px solid var(--rule);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--mono);
-      font-size: 13px;
-      color: var(--ink-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .organizer-card h3 {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.2rem;
-    }
-
-    .organizer-card p {
-      font-size: 0.875rem;
-      color: var(--ink-muted);
-      font-style: italic;
-    }
-
-    .organizer-card a {
-      display: block;
-      margin-top: 0.4rem;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    /* ── Footer ── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 2rem;
-      text-align: center;
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--ink-faint);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .seminar-entry { grid-template-columns: 1fr; gap: 0.25rem; }
-      .seminar-date { font-size: 11px; }
-      nav ul { gap: 0; overflow-x: auto; }
-      nav a { padding: 0.75rem 0.75rem; font-size: 11px; }
-    }
-  </style>
 </head>
+
 <body>
 
 <header>
@@ -453,15 +48,15 @@
 
 <main>
 
-  <!-- ── UPCOMING ── -->
+  <!-- UPCOMING -->
   <section id="upcoming">
     <h2>Upcoming Seminar</h2>
 
     <div class="upcoming-card">
       <p class="tag">Next · 1 April 2026</p>
       <h3>Lorentzian Length Spaces</h3>
-      <p class="speaker">Presented by Suhas B Mahesh &mdash; 1st Year PhD, Geometry and Topology</p>
-      <p class="date-line">Wednesday, 1 April 2026 &nbsp;·&nbsp; 5:30 PM &nbsp;·&nbsp; Hall TBA</p>
+      <p class="speaker">Presented by Suhas B Mahesh — 1st Year PhD, Geometry and Topology</p>
+      <p class="date-line">Wednesday, 1 April 2026 · 5:30 PM · Hall TBA</p>
 
       <div class="abstract-box">
         <h4>Abstract</h4>
@@ -473,74 +68,23 @@
           We will prove that
           $$T = \sum_{n=1}^\infty \lambda_n \langle \cdot, \phi_n \rangle \phi_n$$
           and discuss applications to Fredholm integral equations of the second kind.
-          Time permitting, we extend the discussion to non-self-adjoint compact operators
-          via the singular value decomposition.
         </p>
       </div>
-
-      <!-- Replace href with actual PDF path after uploading -->
-      <!-- <a class="notes-link" href="assets/notes/2026-03-28-spectral-theory.pdf">Download pre-seminar notes (PDF)</a> -->
     </div>
   </section>
 
-  <!-- ── PAST LECTURES ── -->
- <section id="past">
-  <h2>Past Lectures</h2>
-  <p style="color: var(--ink-faint); font-style: italic; padding: 2rem 0;">
-    No lectures yet — check back after the first seminar.
-  </p>
-</section>
-
-    <!-- Entry 2 -->
-    <!-- <div class="seminar-entry">
-      <div class="seminar-date">28 Feb 2026</div>
-      <div class="seminar-info">
-        <span class="topic-tag">Measure Theory</span>
-        <h3>Lebesgue Integration and Dominated Convergence</h3>
-        <p class="speaker">Priya Iyer &mdash; 2nd Year PhD</p>
-        <details>
-          <summary>Abstract</summary>
-          <div class="detail-body">
-            <p>
-              Starting from the construction of the Lebesgue measure on $\mathbb{R}^n$,
-              we develop the integral for non-negative measurable functions and extend it
-              to $L^1(\mu)$. The session culminates in a proof of the Dominated Convergence
-              Theorem and applications to interchange of limits and integrals.
-            </p>
-          </div>
-        </details>
-        <a class="notes-link" href="assets/notes/2026-02-28-lebesgue.pdf">Lecture notes (PDF)</a>
-      </div>
-    </div>
-
-    <!-- Entry 3 -->
-    <!-- <div class="seminar-entry">
-      <div class="seminar-date">14 Feb 2026</div>
-      <div class="seminar-info">
-        <span class="topic-tag">Number Theory</span>
-        <h3>Quadratic Reciprocity and Gaussian Integers</h3>
-        <p class="speaker">Karan Bose &mdash; 3rd Year PhD</p>
-        <details>
-          <summary>Abstract</summary>
-          <div class="detail-body">
-            <p>
-              We present Eisenstein's proof of the Law of Quadratic Reciprocity using properties
-              of the Legendre symbol $\left(\frac{p}{q}\right)$. The ring $\mathbb{Z}[i]$
-              of Gaussian integers is introduced as a Euclidean domain, and its connection to
-              the representation of primes as sums of two squares is established.
-            </p>
-          </div>
-        </details> -->
-        <!-- No notes yet — remove comment when PDF is uploaded -->
-        <!-- <a class="notes-link" href="assets/notes/...">Lecture notes (PDF)</a> -->
-      <!-- </div>
-    </div> -->
-
+  <!-- PAST -->
+  <section id="past">
+    <h2>Past Lectures</h2>
+    <p class="empty-note">
+      No lectures yet — check back after the first seminar.
+    </p>
   </section>
 
-  <!-- ── SCHEDULE ── -->
+  <!-- SCHEDULE -->
   <section id="schedule">
     <h2>Full Schedule 2025–26</h2>
+
     <table class="schedule-table">
       <thead>
         <tr>
@@ -557,12 +101,6 @@
           <td>Lorentzian Length Spaces</td>
           <td><span class="status-badge badge-upcoming">Upcoming</span></td>
         </tr>
-        <!-- <tr>
-          <td class="date-cell">28 Feb 2026</td>
-          <td>Priya Iyer</td>
-          <td>Lebesgue Integration</td>
-          <td><span class="status-badge badge-confirmed">Done</span></td>
-        </tr> -->
         <tr>
           <td class="date-cell">8 Apr 2026</td>
           <td>R Bhadrashri</td>
@@ -585,60 +123,60 @@
     </table>
   </section>
 
-<section id="organizers">
-  <h2>Organizers</h2>
+  <!-- ORGANIZERS -->
+  <section id="organizers">
+    <h2>Organizers</h2>
 
-  <div class="organizer-grid">
+    <div class="organizer-grid">
 
-    <div class="organizer-card">
-      <div class="initials">SM</div>
-      <h3>Suhas B Mahesh</h3>
-      <p>Geometry · 1st Year</p>
-      <a href="mailto:sm834@snu.edu.in">sm834@snu.edu.in</a>
+      <div class="organizer-card">
+        <div class="initials">SM</div>
+        <h3>Suhas B Mahesh</h3>
+        <p>Geometry · 1st Year</p>
+        <a href="mailto:sm834@snu.edu.in">sm834@snu.edu.in</a>
+      </div>
+
+      <div class="organizer-card">
+        <div class="initials">SH</div>
+        <h3>Shivani Mishra</h3>
+        <p>Geometry · 1st Year</p>
+        <a href="mailto:sm907@snu.edu.in">sm907@snu.edu.in</a>
+      </div>
+
+      <div class="organizer-card">
+        <div class="initials">LS</div>
+        <h3>Leena Sarma</h3>
+        <p>Optimization · 1st Year</p>
+        <a href="mailto:ls451@snu.edu.in">ls451@snu.edu.in</a>
+      </div>
+
+      <div class="organizer-card">
+        <div class="initials">RB</div>
+        <h3>R Bhadrashri</h3>
+        <p>Algebra · 1st Year</p>
+        <a href="mailto:rb150@snu.edu.in">rb150@snu.edu.in</a>
+      </div>
+
+      <div class="organizer-card">
+        <div class="initials">AS</div>
+        <h3>Adarsh S</h3>
+        <p>Data Science · 1st Year</p>
+        <a href="mailto:as197@snu.edu.in">as197@snu.edu.in</a>
+      </div>
+
     </div>
 
-    <div class="organizer-card">
-      <div class="initials">SH</div>
-      <h3>Shivani Mishra</h3>
-      <p>Geometry · 1st Year</p>
-      <a href="mailto:sm907@snu.edu.in">sm907@snu.edu.in</a>
-    </div>
-
-    <div class="organizer-card">
-      <div class="initials">LS</div>
-      <h3>Leena Sarma</h3>
-      <p>Optimization · 1st Year</p>
-      <a href="mailto:ls451@snu.edu.in">ls451@snu.edu.in</a>
-    </div>
-
-    <div class="organizer-card">
-      <div class="initials">RB</div>
-      <h3>R Bhadrashri</h3>
-      <p>Algebra · 1st Year</p>
-      <a href="mailto:rb150@snu.edu.in">rb150@snu.edu.in</a>
-    </div>
-
-    <div class="organizer-card">
-      <div class="initials">AS</div>
-      <h3>Adarsh S</h3>
-      <p>Data Science · 1st Year</p>
-      <a href="mailto:as197@snu.edu.in">as197@snu.edu.in</a>
-    </div>
-
-  </div>
-
-  <p class="advisor">
-    Faculty advisor:
-    <strong>Prof. A. Satyanarayana Reddy</strong> ·
-    Department of Mathematics, Shiv Nadar Institute of Eminence
-  </p>
-</section>
+    <p class="advisor">
+      Faculty advisor:
+      <strong>Prof. A. Satyanarayana Reddy</strong> ·
+      Department of Mathematics, Shiv Nadar Institute of Eminence
+    </p>
+  </section>
 
 </main>
 
 <footer>
-  Mathematics Seminar Series &nbsp;·&nbsp; Shiv Nadar Institute of Eminence &nbsp;·&nbsp; 2025–26
-  &nbsp;·&nbsp; Hosted on GitHub Pages
+  Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26 · Hosted on GitHub Pages
 </footer>
 
 </body>
