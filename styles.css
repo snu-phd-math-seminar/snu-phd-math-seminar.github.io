@@ -284,6 +284,9 @@ section h2 {
 .organizer-card a:hover {
   text-decoration: underline;
 }
+.advisor {
+  margin-top: 2.5rem;
+}
 
 /* ── Footer ── */
 footer {
