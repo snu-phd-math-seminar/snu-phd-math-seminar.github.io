@@ -187,6 +187,36 @@ section h2 {
   border-bottom: 1px solid var(--rule);
   padding: 0.8rem 0;
 }
+/* STATUS BADGES */
+.status-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px solid;
+}
+
+/* green for completed */
+.badge-confirmed {
+  color: #2d5a27;
+  border-color: #a8c8a0;
+  background: #f0f7ee;
+}
+
+/* red for upcoming */
+.badge-upcoming {
+  color: var(--accent);
+  border-color: #d4a0a0;
+  background: var(--accent-light);
+}
+
+/* grey for TBD */
+.badge-tbd {
+  color: var(--ink-faint);
+  border-color: var(--rule);
+  background: var(--paper-warm);
+}
 
 /* ── ORGANIZERS (Improved) ── */
 .organizer-grid {
