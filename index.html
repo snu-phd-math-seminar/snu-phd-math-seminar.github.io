@@ -13,37 +13,7 @@
   <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- MathJax -->
-  <script>
-    window.MathJax = {
-      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
-      svg: { fontCache: 'global' }
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-</head>
-<script>
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll("nav a");
 
-  window.addEventListener("scroll", () => {
-    let current = "";
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120; // adjust for header
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute("id");
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === "#" + current) {
-        link.classList.add("active");
-      }
-    });
-  });
-</script>
 <body>
 
 <header>
@@ -199,4 +169,34 @@
 </footer>
 
 </body>
+
+<script>
+  const sections = document.querySelectorAll("main section");
+  const navLinks = document.querySelectorAll("nav a");
+
+  function updateActiveLink() {
+    let currentSection = "";
+
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+
+      if (rect.top <= 120 && rect.bottom >= 120) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+
+      if (link.getAttribute("href") === "#" + currentSection) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink);
+
+  // run once on load
+  updateActiveLink();
+</script>
 </html>
