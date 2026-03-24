@@ -121,6 +121,7 @@ main {
 
 section {
   margin-bottom: 5rem;
+  scroll-margin-top: 80px;
 }
 
 section h2 {
