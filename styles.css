@@ -462,6 +462,15 @@ details .detail-body {
   color: var(--ink-faint);
   margin-top: 0.2rem;
 }
+.advisor-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+  font-style: normal;
+}
 
 /* ── Contact note ── */
 .contact-note {
