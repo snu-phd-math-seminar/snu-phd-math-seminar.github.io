@@ -13,6 +13,21 @@
   <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css">
 
+  <!-- ✅ MathJax CONFIG (must come BEFORE script) -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+
+  <!-- ✅ Load MathJax (NO async) -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+</head>
 
 <body>
 
@@ -168,8 +183,7 @@
   Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26 · Hosted on GitHub Pages
 </footer>
 
-</body>
-
+<!-- ✅ Scroll logic -->
 <script>
   const sections = document.querySelectorAll("main section");
   const navLinks = document.querySelectorAll("nav a");
@@ -195,8 +209,24 @@
   }
 
   window.addEventListener("scroll", updateActiveLink);
-
-  // run once on load
   updateActiveLink();
 </script>
+
+<!-- ✅ Force MathJax rendering AFTER page is ready -->
+<script>
+  window.addEventListener("load", function () {
+    if (window.MathJax) {
+      MathJax.typesetPromise();
+    }
+  });
+
+  // future-proof helper
+  function renderMath() {
+    if (window.MathJax) {
+      MathJax.typesetPromise();
+    }
+  }
+</script>
+
+</body>
 </html>
