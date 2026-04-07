@@ -523,6 +523,32 @@ footer {
     max-width: 100%;
   }
 }
+.past-list {
+  display: grid;
+  gap: 20px;
+}
+
+.past-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.past-card .links {
+  margin-top: 10px;
+}
+
+.past-card a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #1a73e8;
+}
+
+.badge-done {
+  background: #e6f4ea;
+  color: #137333;
+}
 
 @media (max-width: 400px) {
   .organizer-grid {
