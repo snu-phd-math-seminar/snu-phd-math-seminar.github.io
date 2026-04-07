@@ -178,7 +178,6 @@ section h2 {
   padding: 1.25rem 1.5rem;
   margin-top: 1rem;
   font-size: 0.95rem;
-  line-height: 1.8;
 }
 
 .abstract-box h4 {
@@ -190,340 +189,12 @@ section h2 {
   margin-bottom: 0.75rem;
 }
 
-/* ── Notes download link ── */
-.notes-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 0.75rem;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.15s;
-}
-
-.notes-link:hover {
-  border-bottom-color: var(--accent);
-}
-
-.notes-link::before {
-  content: '↓ ';
-}
-
 /* ── Past Lectures ── */
 .empty-note {
   color: var(--ink-faint);
   font-style: italic;
   padding: 2rem 0;
 }
-
-.seminar-entry {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 0 1.5rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.seminar-entry:first-of-type {
-  border-top: 1px solid var(--rule);
-}
-
-.seminar-date {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink-faint);
-  padding-top: 0.2rem;
-  line-height: 1.5;
-}
-
-.seminar-info h3 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
-}
-
-.seminar-info .speaker {
-  font-style: italic;
-  color: var(--ink-muted);
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-
-.topic-tag {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--paper-warm);
-  border: 1px solid var(--rule);
-  color: var(--ink-muted);
-  padding: 2px 8px;
-  display: inline-block;
-  margin-bottom: 0.6rem;
-}
-
-details summary {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-details summary::before {
-  content: '▸ ';
-  font-size: 9px;
-}
-
-details[open] summary::before {
-  content: '▾ ';
-}
-
-details .detail-body {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  line-height: 1.8;
-  color: var(--ink);
-  border-left: 2px solid var(--rule);
-  padding-left: 1rem;
-}
-
-/* ── Schedule ── */
-.schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.92rem;
-}
-
-.schedule-table th {
-  text-align: left;
-  padding: 0.6rem 0;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  border-bottom: 1px solid var(--rule);
-}
-
-.schedule-table td {
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--rule);
-  vertical-align: top;
-}
-
-.schedule-table tr:last-child td {
-  border-bottom: none;
-}
-
-.date-cell {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink-faint);
-  white-space: nowrap;
-  width: 110px;
-}
-
-/* ── Status Badges ── */
-.status-badge {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border: 1px solid;
-  border-radius: 3px;
-}
-
-.badge-confirmed {
-  color: #2d5a27;
-  border-color: #a8c8a0;
-  background: #f0f7ee;
-}
-
-.badge-upcoming {
-  color: var(--accent);
-  border-color: #d4a0a0;
-  background: var(--accent-light);
-  font-weight: 500;
-}
-
-.badge-tbd {
-  color: var(--ink-faint);
-  border-color: var(--rule);
-  background: var(--paper-warm);
-}
-
-/* ── Organizers ── */
-.organizer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.organizer-card {
-  border: 1px solid var(--rule);
-  padding: 1.4rem;
-  background: var(--paper);
-  transition: all 0.25s ease;
-}
-
-.organizer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-}
-
-.organizer-card .initials {
-  width: 42px;
-  height: 42px;
-  background: var(--paper-warm);
-  border: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
-}
-
-.organizer-card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.2rem;
-}
-
-.organizer-card p {
-  font-size: 0.875rem;
-  color: var(--ink-muted);
-  font-style: italic;
-  margin-bottom: 0.3rem;
-}
-
-.organizer-card a {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.organizer-card a:hover {
-  text-decoration: underline;
-}
-
-/* ── Advisor Card ── */
-.advisor-card {
-  border: 1px solid var(--rule);
-  border-left: 4px solid var(--accent);
-  padding: 1.5rem;
-  background: var(--paper-warm);
-  margin-top: 2.5rem;
-  max-width: 400px;
-}
-
-.advisor-card .initials {
-  width: 42px;
-  height: 42px;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
-}
-
-.advisor-card h3 {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
-}
-
-.advisor-card p {
-  font-size: 0.875rem;
-  color: var(--ink-muted);
-  font-style: italic;
-}
-
-.advisor-sub {
-  font-size: 0.8rem;
-  color: var(--ink-faint);
-  margin-top: 0.2rem;
-}
-.advisor-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.6rem;
-  font-style: normal;
-}
-
-/* ── Contact note ── */
-.contact-note {
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-  color: var(--ink-muted);
-  font-style: italic;
-}
-
-/* ── Footer ── */
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 2rem;
-  text-align: center;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-faint);
-  letter-spacing: 0.06em;
-}
-
-/* ── Responsive ── */
-@media (max-width: 700px) {
-  .organizer-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .seminar-entry {
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
-  }
-
-  .seminar-date {
-    font-size: 11px;
-  }
-
-  nav ul {
-    overflow-x: auto;
-  }
-
-  nav a {
-    padding: 0.75rem 0.75rem;
-    font-size: 11px;
-  }
-
-  main {
-    padding: 2rem 1.2rem;
-  }
-
-  .advisor-card {
-    max-width: 100%;
-  }
-}
-/* ── Past Lectures (consistent with theme) ── */
 
 .past-list {
   display: grid;
@@ -553,7 +224,6 @@ footer {
 
 .past-card h3 {
   font-size: 1.2rem;
-  margin-bottom: 0.2rem;
 }
 
 .past-card .speaker {
@@ -566,7 +236,7 @@ footer {
 .past-card .links a {
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--accent);   /* ✅ FIXED */
+  color: var(--accent);
   text-decoration: none;
   margin-right: 14px;
   border-bottom: 1px solid transparent;
@@ -574,6 +244,93 @@ footer {
 
 .past-card .links a:hover {
   border-bottom-color: var(--accent);
+}
+
+/* ── Schedule ── */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.schedule-table th {
+  text-align: left;
+  padding: 0.6rem 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule);
+}
+
+.schedule-table td {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── Status Badges ── */
+.status-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 1px solid;
+  border-radius: 3px;
+}
+
+.badge-upcoming {
+  color: var(--accent);
+  border-color: #d4a0a0;
+  background: var(--accent-light);
+}
+
+.badge-done {
+  color: #2d5a27;
+  border-color: #a8c8a0;
+  background: #f0f7ee;
+}
+
+/* ── Organizers ── */
+.organizer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.organizer-card {
+  border: 1px solid var(--rule);
+  padding: 1.4rem;
+  background: var(--paper);
+}
+
+.organizer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .organizer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  nav ul {
+    overflow-x: auto;
+  }
+
+  main {
+    padding: 2rem 1.2rem;
+  }
 }
 
 @media (max-width: 400px) {
