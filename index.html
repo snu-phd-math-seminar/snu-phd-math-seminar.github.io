@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- Your CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- ✅ MathJax CONFIG (must come BEFORE script) -->
+  <!-- MathJax CONFIG -->
   <script>
     window.MathJax = {
       tex: {
@@ -24,9 +24,7 @@
     };
   </script>
 
-  <!-- ✅ Load MathJax (NO async) -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-
 </head>
 
 <body>
@@ -59,10 +57,10 @@
     <h2>Upcoming Seminar</h2>
 
     <div class="upcoming-card">
-      <p class="tag">Next · 09 April 2026</p>
+      <p class="tag">Next · 9 April 2026</p>
       <h3>Lorentzian Length Spaces</h3>
-      <p class="speaker">Presented by Suhas B Mahesh — 1st Year PhD, </p>
-      <p class="date-line">Thursday, 09 April 2026 · 5:30 PM · Hall A317</p>
+      <p class="speaker">Presented by Suhas B Mahesh — 1st Year PhD</p>
+      <p class="date-line">Thursday, 9 April 2026 · 5:30 PM · Hall A317</p>
 
       <div class="abstract-box">
         <h4>Abstract</h4>
@@ -71,10 +69,11 @@
           This is important in the theory of Relativity and the approaches to quantum gravity.
           We also define certain topologies on such spaces and see how these topologies affect the physics on such spaces. 
           For all purposes in this seminar, we consider a Spacetime $(M,\bar{g})$, that is, 
-          a smooth/differentiable manifold $M$ with a Lorentzian metric $\bar{g}$ and a smooth, complete Riemannian metric $h$ on $M$.
+          a smooth manifold $M$ with a Lorentzian metric $\bar{g}$ and a complete Riemannian metric $h$.
         </p>
       </div>
     </div>
+
     <p class="contact-note">
       Would you be interested in giving a seminar? Reach out to any of the organizers via email.
     </p>
@@ -83,20 +82,20 @@
   <!-- PAST -->
   <section id="past">
     <h2>Past Lectures</h2>
-  
+
     <div class="past-list">
-  
+
       <div class="past-card">
         <p class="tag">1 April 2026</p>
         <h3>Modelling Interactions in Complex Systems</h3>
         <p class="speaker">Hiren Dhameliya</p>
-  
+
         <div class="links">
           <a href="assets/abstracts/hiren_abstract.pdf" target="_blank">Abstract</a>
           <a href="assets/notes/hiren_notes.pdf" target="_blank">Lecture Notes</a>
         </div>
       </div>
-  
+
     </div>
   </section>
 
@@ -118,7 +117,7 @@
           <td class="date-cell">1 Apr 2026</td>
           <td>Hiren Dhameliya</td>
           <td>Complex Networks</td>
-          <td><span class="status-badge badge-confirmed">Completed</span></td>
+          <td><span class="status-badge badge-done">Completed</span></td>
         </tr>
         <tr>
           <td class="date-cell">9 Apr 2026</td>
@@ -198,7 +197,7 @@
       <p>School of Natural Sciences</p>
       <p class="advisor-sub">Shiv Nadar Institute of Eminence</p>
     </div>
-    
+
   </section>
 
 </main>
@@ -207,7 +206,7 @@
   Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26 · Hosted on GitHub Pages
 </footer>
 
-<!-- ✅ Scroll logic -->
+<!-- Scroll logic -->
 <script>
   const sections = document.querySelectorAll("main section");
   const navLinks = document.querySelectorAll("nav a");
@@ -217,7 +216,6 @@
 
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
-
       if (rect.top <= 120 && rect.bottom >= 120) {
         currentSection = section.getAttribute("id");
       }
@@ -225,7 +223,6 @@
 
     navLinks.forEach(link => {
       link.classList.remove("active");
-
       if (link.getAttribute("href") === "#" + currentSection) {
         link.classList.add("active");
       }
@@ -236,20 +233,12 @@
   updateActiveLink();
 </script>
 
-<!-- ✅ Force MathJax rendering AFTER page is ready -->
 <script>
   window.addEventListener("load", function () {
     if (window.MathJax) {
       MathJax.typesetPromise();
     }
   });
-
-  // future-proof helper
-  function renderMath() {
-    if (window.MathJax) {
-      MathJax.typesetPromise();
-    }
-  }
 </script>
 
 </body>
