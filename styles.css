@@ -523,31 +523,57 @@ footer {
     max-width: 100%;
   }
 }
+/* ── Past Lectures (consistent with theme) ── */
+
 .past-list {
   display: grid;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .past-card {
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 10px;
-  background: #fafafa;
+  border: 1px solid var(--rule);
+  padding: 1.4rem 1.6rem;
+  background: var(--paper);
+  transition: all 0.2s ease;
 }
 
-.past-card .links {
-  margin-top: 10px;
+.past-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
 }
 
-.past-card a {
-  margin-right: 15px;
+.past-card .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.4rem;
+}
+
+.past-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.past-card .speaker {
+  font-style: italic;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+.past-card .links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);   /* ✅ FIXED */
   text-decoration: none;
-  color: #1a73e8;
+  margin-right: 14px;
+  border-bottom: 1px solid transparent;
 }
 
-.badge-done {
-  background: #e6f4ea;
-  color: #137333;
+.past-card .links a:hover {
+  border-bottom-color: var(--accent);
 }
 
 @media (max-width: 400px) {
