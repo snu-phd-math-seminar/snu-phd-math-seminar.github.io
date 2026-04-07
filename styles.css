@@ -189,62 +189,69 @@ section h2 {
   margin-bottom: 0.75rem;
 }
 
-/* ── Past Lectures ── */
+/* ── Past Lectures (ACADEMIC LIST STYLE) ── */
 .empty-note {
   color: var(--ink-faint);
   font-style: italic;
   padding: 2rem 0;
 }
 
-/* .past-list {
+.seminar-entry {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: 120px 1fr;
+  gap: 0 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
 }
 
-.past-card {
-  border: 1px solid var(--rule);
-  padding: 1.4rem 1.6rem;
-  background: var(--paper);
-  transition: all 0.2s ease;
+.seminar-entry:first-of-type {
+  border-top: 1px solid var(--rule);
 }
 
-.past-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.past-card .tag {
+.seminar-date {
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 12px;
   color: var(--ink-faint);
-  margin-bottom: 0.4rem;
+  padding-top: 0.2rem;
 }
 
-.past-card h3 {
-  font-size: 1.2rem;
+.seminar-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
 }
 
-.past-card .speaker {
+.seminar-info .speaker {
   font-style: italic;
   color: var(--ink-muted);
   font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.topic-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+  padding: 2px 8px;
+  display: inline-block;
   margin-bottom: 0.6rem;
 }
 
-.past-card .links a {
+.seminar-info .links a {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--accent);
   text-decoration: none;
-  margin-right: 14px;
+  margin-right: 12px;
   border-bottom: 1px solid transparent;
 }
 
-.past-card .links a:hover {
+.seminar-info .links a:hover {
   border-bottom-color: var(--accent);
-} */
+}
 
 /* ── Schedule ── */
 .schedule-table {
@@ -258,7 +265,6 @@ section h2 {
   padding: 0.6rem 0;
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-faint);
   border-bottom: 1px solid var(--rule);
@@ -301,11 +307,49 @@ section h2 {
   border: 1px solid var(--rule);
   padding: 1.4rem;
   background: var(--paper);
+  transition: all 0.2s ease;
 }
 
 .organizer-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+}
+
+.organizer-card .initials {
+  width: 42px;
+  height: 42px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+
+.organizer-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.organizer-card p {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-bottom: 0.4rem;
+}
+
+.organizer-card a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.organizer-card a:hover {
+  text-decoration: underline;
 }
 
 /* ── Footer ── */
@@ -322,6 +366,10 @@ footer {
 @media (max-width: 700px) {
   .organizer-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .seminar-entry {
+    grid-template-columns: 1fr;
   }
 
   nav ul {
