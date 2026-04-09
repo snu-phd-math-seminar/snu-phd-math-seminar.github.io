@@ -1,0 +1,44 @@
+{
+  "lectures": [
+    {
+      "date": "2026-04-01",
+      "title": "Modeling Interactions in Complex Systems",
+      "speaker": "Hiren Dhameliya",
+      "topic": "Complex Networks",
+      "abstract": "assets/abstracts/hiren_abstract.pdf",
+      "notes": "assets/notes/hiren_notes.pdf"
+    },
+    {
+      "date": "2026-04-09",
+      "title": "Lorentzian Length Spaces",
+      "speaker": "Suhas B Mahesh",
+      "topic": "Geometry",
+      "abstract": "assets/abstracts/suhas_abstract.pdf",
+      "notes": "assets/notes/suhas_notes.pdf"
+    },
+    {
+      "date": "2026-04-16",
+      "title": "Algebra",
+      "speaker": "R Bhadrashri",
+      "topic": "Algebra",
+      "abstract": "assets/abstracts/bhadra_abstract.pdf",
+      "notes": "assets/notes/bhadra_notes.pdf"
+    },
+    {
+      "date": "2026-04-23",
+      "title": "Differential Geometry",
+      "speaker": "Shivani Mishra",
+      "topic": "Differential Geometry",
+      "abstract": "assets/abstracts/shivani_abstract.pdf",
+      "notes": "assets/notes/shivani_notes.pdf"
+    },
+    {
+      "date": "2026-04-30",
+      "title": "Optimization Theory",
+      "speaker": "Leena Sarma",
+      "topic": "Optimization Theory",
+      "abstract": "assets/abstracts/leena_abstract.pdf",
+      "notes": "assets/notes/leena_notes.pdf"
+    }
+  ]
+}
