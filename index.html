@@ -2,28 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Mathematics Seminar Series</title>
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- MathJax CONFIG -->
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']],
         displayMath: [['$$', '$$'], ['\\[', '\\]']]
-      },
-      svg: { fontCache: 'global' }
+      }
     };
   </script>
-
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
@@ -52,191 +48,109 @@
 
 <main>
 
-  <!-- UPCOMING -->
-  <section id="upcoming">
-    <h2>Upcoming Seminar</h2>
+<!-- UPCOMING -->
+<section id="upcoming">
+  <h2>Upcoming Seminar</h2>
+  <div id="upcoming-container"></div>
+  <p class="contact-note">
+    Would you be interested in giving a seminar? Reach out to any of the organizers via email.
+  </p>
+</section>
 
-    <div class="upcoming-card">
-      <p class="tag">Next · 9 April 2026</p>
-      <h3>Lorentzian Length Spaces</h3>
-      <p class="speaker">Presented by Suhas B Mahesh — 1st Year PhD</p>
-      <p class="date-line">Thursday, 9 April 2026 · 6:30 PM · Hall A317</p>
+<!-- PAST -->
+<section id="past">
+  <h2>Past Lectures</h2>
+  <div id="past-container"></div>
+</section>
 
-      <div class="abstract-box">
-        <h4>Abstract</h4>
-        <p>
-          We try to define the Causality and Chronology structures on Lorentzian manifolds and further generalize them to length spaces. 
-          This is important in the theory of Relativity and the approaches to quantum gravity.
-          We also define certain topologies on such spaces and see how these topologies affect the physics on such spaces. 
-          For all purposes in this seminar, we consider a Spacetime $(M,\bar{g})$, that is, 
-          a smooth manifold $M$ with a Lorentzian metric $\bar{g}$ and a complete Riemannian metric $h$.
-        </p>
-      </div>
+<!-- SCHEDULE -->
+<section id="schedule">
+  <h2>Full Schedule 2025–26</h2>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Speaker</th>
+        <th>Topic</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="schedule-body"></tbody>
+  </table>
+</section>
+
+<!-- ORGANIZERS -->
+<section id="organizers">
+  <h2>Organizers</h2>
+
+  <div class="organizer-grid">
+
+    <div class="organizer-card">
+      <div class="initials">SM</div>
+      <h3>Suhas B Mahesh</h3>
+      <p>Geometry · 1st Year</p>
+      <a href="mailto:sm834@snu.edu.in">sm834@snu.edu.in</a>
     </div>
 
-    <p class="contact-note">
-      Would you be interested in giving a seminar? Reach out to any of the organizers via email.
-    </p>
-  </section>
-
-  <!-- PAST -->
-  <section id="past">
-    <h2>Past Lectures</h2>
-    <!-- <div class="seminar-entry">
-      <div class="seminar-date">09 Apr 2026</div>
-  
-      <div class="seminar-info">
-        <h3>Lorentzian Length Spaces</h3>
-        <p class="speaker">Suhas B Mahesh</p>
-  
-        <span class="topic-tag">Geometry</span>
-  
-        <div class="links">
-          <a href="assets/abstracts/suhas_abstract.pdf" target="_blank">Abstract</a>
-          <a href="assets/notes/suhas_notes.pdf" target="_blank">Lecture Notes</a>
-        </div>
-      </div>
-    </div> -->
-    <div class="seminar-entry">
-      <div class="seminar-date">01 Apr 2026</div>
-  
-      <div class="seminar-info">
-        <h3> Modeling Interactions in Complex Systems: From Graphs to Simplicial Complexes</h3>
-        <p class="speaker">Hiren Dhameliya</p>
-  
-        <span class="topic-tag">Complex Networks</span>
-  
-        <div class="links">
-          <a href="assets/abstracts/Hiren_abstract.pdf" target="_blank">Abstract</a>
-          <!-- <a href="assets/notes/hiren_notes.pdf" target="_blank">Lecture Notes</a> -->
-        </div>
-      </div>
-    </div>
-  
-  </section>
-
-  <!-- SCHEDULE -->
-  <section id="schedule">
-    <h2>Full Schedule 2025–26</h2>
-
-    <table class="schedule-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Speaker</th>
-          <th>Topic</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="date-cell">1 Apr 2026</td>
-          <td>Hiren Dhameliya</td>
-          <td>Complex Networks</td>
-          <td><span class="status-badge badge-done">Completed</span></td>
-        </tr>
-        <tr>
-          <td class="date-cell">9 Apr 2026</td>
-          <td>Suhas B Mahesh</td>
-          <td>Lorentzian Length Spaces</td>
-          <td><span class="status-badge badge-upcoming">Upcoming</span></td>
-        </tr>
-        <tr>
-          <td class="date-cell">16 Apr 2026</td>
-          <td>R Bhadrashri</td>
-          <td>Algebra</td>
-          <td><span class="status-badge badge-upcoming">Upcoming</span></td>
-        </tr>
-        <tr>
-          <td class="date-cell">23 Apr 2026</td>
-          <td>Shivani Mishra</td>
-          <td>Differential Geometry</td>
-          <td><span class="status-badge badge-upcoming">Upcoming</span></td>
-        </tr>
-        <tr>
-          <td class="date-cell">30 Apr 2026</td>
-          <td>Leena Sarma</td>
-          <td>Optimization Theory</td>
-          <td><span class="status-badge badge-upcoming">Upcoming</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ORGANIZERS -->
-  <section id="organizers">
-    <h2>Organizers</h2>
-
-    <div class="organizer-grid">
-
-      <div class="organizer-card">
-        <div class="initials">SM</div>
-        <h3>Suhas B Mahesh</h3>
-        <p>Geometry · 1st Year</p>
-        <a href="mailto:sm834@snu.edu.in">sm834@snu.edu.in</a>
-      </div>
-
-      <div class="organizer-card">
-        <div class="initials">SH</div>
-        <h3>Shivani Mishra</h3>
-        <p>Geometry · 1st Year</p>
-        <a href="mailto:sm907@snu.edu.in">sm907@snu.edu.in</a>
-      </div>
-
-      <div class="organizer-card">
-        <div class="initials">LS</div>
-        <h3>Leena Sarma</h3>
-        <p>Optimization · 1st Year</p>
-        <a href="mailto:ls451@snu.edu.in">ls451@snu.edu.in</a>
-      </div>
-
-      <div class="organizer-card">
-        <div class="initials">RB</div>
-        <h3>R Bhadrashri</h3>
-        <p>Algebra · 1st Year</p>
-        <a href="mailto:rb150@snu.edu.in">rb150@snu.edu.in</a>
-      </div>
-
-      <div class="organizer-card">
-        <div class="initials">AS</div>
-        <h3>Adarsh S</h3>
-        <p>Data Science · 1st Year</p>
-        <a href="mailto:as197@snu.edu.in">as197@snu.edu.in</a>
-      </div>
-
+    <div class="organizer-card">
+      <div class="initials">SH</div>
+      <h3>Shivani Mishra</h3>
+      <p>Geometry · 1st Year</p>
+      <a href="mailto:sm907@snu.edu.in">sm907@snu.edu.in</a>
     </div>
 
-    <div class="advisor-card">
-      <p class="advisor-label">Faculty Advisor</p>
-      <h3>Prof. A. Satyanarayana Reddy</h3>
-      <p>Department of Mathematics</p>
-      <p>School of Natural Sciences</p>
-      <p class="advisor-sub">Shiv Nadar Institute of Eminence</p>
+    <div class="organizer-card">
+      <div class="initials">LS</div>
+      <h3>Leena Sarma</h3>
+      <p>Optimization · 1st Year</p>
+      <a href="mailto:ls451@snu.edu.in">ls451@snu.edu.in</a>
     </div>
 
-  </section>
+    <div class="organizer-card">
+      <div class="initials">RB</div>
+      <h3>R Bhadrashri</h3>
+      <p>Algebra · 1st Year</p>
+      <a href="mailto:rb150@snu.edu.in">rb150@snu.edu.in</a>
+    </div>
+
+    <div class="organizer-card">
+      <div class="initials">AS</div>
+      <h3>Adarsh S</h3>
+      <p>Data Science · 1st Year</p>
+      <a href="mailto:as197@snu.edu.in">as197@snu.edu.in</a>
+    </div>
+
+  </div>
+
+  <div class="advisor-card">
+    <p class="advisor-label">Faculty Advisor</p>
+    <h3>Prof. A. Satyanarayana Reddy</h3>
+    <p>Department of Mathematics</p>
+    <p>School of Natural Sciences</p>
+    <p class="advisor-sub">Shiv Nadar Institute of Eminence</p>
+  </div>
+
+</section>
 
 </main>
 
 <footer>
-  Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26 · Hosted on GitHub Pages
+  Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26
 </footer>
 
-<!-- Scroll logic -->
+<!-- NAV SCROLL -->
 <script>
   const sections = document.querySelectorAll("main section");
   const navLinks = document.querySelectorAll("nav a");
 
   function updateActiveLink() {
     let currentSection = "";
-
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
       if (rect.top <= 120 && rect.bottom >= 120) {
         currentSection = section.getAttribute("id");
       }
     });
-
     navLinks.forEach(link => {
       link.classList.remove("active");
       if (link.getAttribute("href") === "#" + currentSection) {
@@ -249,12 +163,134 @@
   updateActiveLink();
 </script>
 
+<!-- DYNAMIC ENGINE -->
 <script>
-  window.addEventListener("load", function () {
-    if (window.MathJax) {
-      MathJax.typesetPromise();
+fetch('data.json')
+  .then(res => res.json())
+  .then(data => {
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcomingContainer = document.getElementById("upcoming-container");
+    const pastContainer     = document.getElementById("past-container");
+    const scheduleBody      = document.getElementById("schedule-body");
+
+    const INITIAL_SHOW = 3;
+
+    // Sort ascending for schedule + upcoming logic
+    const sorted = data.lectures.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    let upcomingShown = false;
+    const pastLectures = [];
+
+    sorted.forEach(lec => {
+      try {
+        const lecDate       = new Date(lec.date);
+        const formattedDate = lecDate.toLocaleDateString('en-GB', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        });
+        const isPast = lecDate < today;
+
+        // ── UPCOMING (first one only) ──────────────────────────────────────
+        if (!isPast && !upcomingShown) {
+          upcomingContainer.innerHTML = `
+            <div class="upcoming-card">
+              <p class="tag">Next · ${formattedDate}</p>
+              <h3>${lec.title || ""}</h3>
+              <p class="speaker">Presented by ${lec.speaker || ""}</p>
+              <p class="date-line">${formattedDate} · 6:30 PM · Hall A317</p>
+              ${lec.abstract_text ? `
+                <div class="abstract-box">
+                  <h4>Abstract</h4>
+                  <p>${lec.abstract_text}</p>
+                </div>
+              ` : ''}
+            </div>
+          `;
+          if (window.MathJax) MathJax.typesetPromise([upcomingContainer]);
+          upcomingShown = true;
+        }
+
+        // ── Collect past entries ───────────────────────────────────────────
+        if (isPast) {
+          pastLectures.push({ lec, formattedDate });
+        }
+
+        // ── SCHEDULE (all entries, ascending) ─────────────────────────────
+        scheduleBody.innerHTML += `
+          <tr>
+            <td class="date-cell">${formattedDate}</td>
+            <td>${lec.speaker || ""}</td>
+            <td>${lec.topic || ""}</td>
+            <td>
+              <span class="status-badge ${isPast ? 'badge-done' : 'badge-upcoming'}">
+                ${isPast ? 'Completed' : 'Upcoming'}
+              </span>
+            </td>
+          </tr>
+        `;
+
+      } catch (err) {
+        console.error("Error rendering lecture:", lec, err);
+      }
+    });
+
+    if (!upcomingShown) {
+      upcomingContainer.innerHTML = "<p>No upcoming seminar scheduled.</p>";
     }
-  });
+
+    // ── PAST — render descending, with Show More ───────────────────────────
+    pastLectures.reverse(); // newest first
+
+    function renderPastEntry({ lec, formattedDate }) {
+      return `
+        <div class="seminar-entry">
+          <div class="seminar-date">${formattedDate}</div>
+          <div class="seminar-info">
+            <h3>${lec.title || ""}</h3>
+            <p class="speaker">${lec.speaker || ""}</p>
+            <span class="topic-tag">${lec.topic || ""}</span>
+            <div class="links">
+              ${lec.abstract ? `<a href="${lec.abstract}" target="_blank">Abstract</a>` : ''}
+              ${lec.notes    ? `<a href="${lec.notes}"    target="_blank">Notes</a>`    : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (pastLectures.length === 0) {
+      pastContainer.innerHTML = `<p class="empty-note">No past lectures yet. Check back after the first seminar.</p>`;
+    } else {
+      // Render initial batch
+      pastLectures.slice(0, INITIAL_SHOW).forEach(entry => {
+        pastContainer.innerHTML += renderPastEntry(entry);
+      });
+
+      // Show More button (only if there are hidden entries)
+      if (pastLectures.length > INITIAL_SHOW) {
+        const remaining = pastLectures.length - INITIAL_SHOW;
+
+        const showMoreBtn = document.createElement("button");
+        showMoreBtn.textContent = `Show ${remaining} more`;
+        showMoreBtn.className   = "show-more-btn";
+
+        showMoreBtn.addEventListener("click", () => {
+          pastLectures.slice(INITIAL_SHOW).forEach(entry => {
+            const temp = document.createElement("div");
+            temp.innerHTML = renderPastEntry(entry);
+            pastContainer.insertBefore(temp.firstElementChild, showMoreBtn);
+          });
+          showMoreBtn.remove();
+        });
+
+        pastContainer.appendChild(showMoreBtn);
+      }
+    }
+
+  })
+  .catch(err => console.error("Failed to load data.json:", err));
 </script>
 
 </body>
