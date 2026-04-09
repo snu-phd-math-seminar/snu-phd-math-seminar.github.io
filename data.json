@@ -2,9 +2,10 @@
   "lectures": [
     {
       "date": "2026-04-01",
-      "title": "Modeling Interactions in Complex Systems",
+      "title": "Modeling Interactions in Complex Systems: From Graphs to Simplicial Complexes",
       "speaker": "Hiren Dhameliya",
       "topic": "Complex Networks",
+      "abstract_text": "",
       "abstract": "assets/abstracts/hiren_abstract.pdf",
       "notes": "assets/notes/hiren_notes.pdf"
     },
@@ -13,6 +14,7 @@
       "title": "Lorentzian Length Spaces",
       "speaker": "Suhas B Mahesh",
       "topic": "Geometry",
+      "abstract_text": "",
       "abstract": "assets/abstracts/suhas_abstract.pdf",
       "notes": "assets/notes/suhas_notes.pdf"
     },
@@ -21,6 +23,7 @@
       "title": "Algebra",
       "speaker": "R Bhadrashri",
       "topic": "Algebra",
+      "abstract_text": "",
       "abstract": "assets/abstracts/bhadra_abstract.pdf",
       "notes": "assets/notes/bhadra_notes.pdf"
     },
@@ -29,6 +32,7 @@
       "title": "Differential Geometry",
       "speaker": "Shivani Mishra",
       "topic": "Differential Geometry",
+      "abstract_text": "",
       "abstract": "assets/abstracts/shivani_abstract.pdf",
       "notes": "assets/notes/shivani_notes.pdf"
     },
@@ -37,6 +41,7 @@
       "title": "Optimization Theory",
       "speaker": "Leena Sarma",
       "topic": "Optimization Theory",
+      "abstract_text": "",
       "abstract": "assets/abstracts/leena_abstract.pdf",
       "notes": "assets/notes/leena_notes.pdf"
     }
