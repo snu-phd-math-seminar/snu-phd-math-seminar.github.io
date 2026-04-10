@@ -421,7 +421,37 @@ section h2 {
   margin-bottom: 0.6rem;
   font-style: normal;
 }
+/* ── Subscribe Section ── */
 
+.subscribe-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.subscribe-text {
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  margin-bottom: 0.6rem;
+}
+
+.subscribe-btn {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+.subscribe-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* ── Footer ── */
 footer {
