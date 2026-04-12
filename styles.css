@@ -133,7 +133,22 @@ section h2 {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--rule);
 }
-
+.announcement-banner {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  border: 1px solid var(--rule);
+  border-left: 4px solid #b8860b;   /* golden — distinct from accent red */
+  background: #fdf8ec;
+  padding: 1rem 1.4rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.announcement-banner .announcement-icon {
+  font-size: 1rem;
+  padding-top: 0.15rem;
+}
 /* ── Upcoming ── */
 .upcoming-card {
   border: 1px solid var(--rule);
