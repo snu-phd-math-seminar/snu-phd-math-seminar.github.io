@@ -133,22 +133,7 @@ section h2 {
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--rule);
 }
-.announcement-banner {
-  display: flex;
-  gap: 0.9rem;
-  align-items: flex-start;
-  border: 1px solid var(--rule);
-  border-left: 4px solid #b8860b;   /* golden — distinct from accent red */
-  background: #fdf8ec;
-  padding: 1rem 1.4rem;
-  margin-bottom: 2.5rem;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-.announcement-banner .announcement-icon {
-  font-size: 1rem;
-  padding-top: 0.15rem;
-}
+
 /* ── Upcoming ── */
 .upcoming-card {
   border: 1px solid var(--rule);
@@ -501,4 +486,65 @@ footer {
   .organizer-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Announcements ── */
+.announcement-card {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--ink-muted);
+  padding: 1.75rem 2rem;
+  background: var(--paper-warm);
+}
+
+.announcement-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.announcement-type {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 2px 8px;
+}
+
+.announcement-date {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+
+.announcement-card h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.announcement-speaker {
+  font-style: italic;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+}
+
+.announcement-body {
+  font-size: 0.97rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.announcement-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
 }
