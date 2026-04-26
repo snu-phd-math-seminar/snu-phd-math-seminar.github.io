@@ -37,15 +37,6 @@
       "notes": "assets/notes/deva_notes.pdf"
     },
     {
-      "date": "2026-04-28",
-      "title": "Lorentzian Length Spaces (Session 2)",
-      "speaker": "Suhas B Mahesh",
-      "topic": "Geometry",
-      "abstract_text": "",
-      "abstract": "assets/abstracts/suhas_abstract.pdf",
-      "notes": "assets/notes/suhas_notes.pdf"
-    },
-    {
       "date": "2026-04-30",
       "title": "Optimization Theory",
       "speaker": "Leena Sarma",
@@ -53,6 +44,15 @@
       "abstract_text": "",
       "abstract": "assets/abstracts/leena_abstract.pdf",
       "notes": "assets/notes/leena_notes.pdf"
+    },
+    {
+      "date": "2026-05-09",
+      "title": "Lorentzian Length Spaces (Session 2)",
+      "speaker": "Suhas B Mahesh",
+      "topic": "Geometry",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/suhas_abstract.pdf",
+      "notes": "assets/notes/suhas_notes.pdf"
     }
   ]
 }
