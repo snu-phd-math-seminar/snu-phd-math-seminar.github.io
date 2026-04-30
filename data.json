@@ -46,6 +46,15 @@
       "notes": "assets/notes/saurabh_notes.pdf"
     },
     {
+      "date": "2026-05-07",
+      "title": "TBA",
+      "speaker": "Krishna Kumar Gupta",
+      "topic": "Linear Algebra",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/krishna_abstract.pdf",
+      "notes": "assets/notes/krishna_notes.pdf"
+    },
+    {
       "date": "2026-05-09",
       "title": "Lorentzian Length Spaces (Session 2)",
       "speaker": "Suhas B Mahesh",
