@@ -47,10 +47,10 @@
     },
     {
       "date": "2026-05-07",
-      "title": "TBA",
+      "title": "Singular Value Decomposition of a Matrix",
       "speaker": "Krishna Kumar Gupta",
       "topic": "Linear Algebra",
-      "abstract_text": "",
+      "abstract_text": "Let $A$ be an $m \\times n$ complex (or real) matrix. Then there exist unitary (orthogonal) matrices $U$ of order $m \\times m$ and $V$ of order $n \\times n$ such that \\[A = U \\Sigma V^* (or $A = U \\Sigma V^T$ in the real case) ,\\] where $\\Sigma$ is an $m \\times n$ real diagonal matrix whose entries are the singular values of $A$. This factorization is called the singular value decomposition (SVD) of $A$. In this talk, we discuss its history, some basic properties, and applications.",
       "abstract": "assets/abstracts/krishna_abstract.pdf",
       "notes": "assets/notes/krishna_notes.pdf"
     },
