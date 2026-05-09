@@ -55,13 +55,49 @@
       "notes": "assets/notes/krishna_notes.pdf"
     },
     {
-      "date": "2026-05-16",
-      "title": "Lorentzian Length Spaces (Session 2)",
+      "date": "2026-05-14",
+      "title": "TBA",
+      "speaker": "Leena Sarma",
+      "topic": "Optimization",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/leena_abstract.pdf",
+      "notes": "assets/notes/leena_notes.pdf"
+    },
+    {
+      "date": "2026-05-21",
+      "title": "TBA",
+      "speaker": "Saurabh Dwivedi",
+      "topic": "Operator Theory",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/saurabh2_abstract.pdf",
+      "notes": "assets/notes/saurabh2_notes.pdf"
+    },
+    {
+      "date": "2026-05-28",
+      "title": "TBA",
+      "speaker": "R Bhadrashri",
+      "topic": "Algebra",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/bhadra2_abstract.pdf",
+      "notes": "assets/notes/bhadra2_notes.pdf"
+    },
+    {
+      "date": "2026-06-11",
+      "title": "Lorentzian Length Spaces",
       "speaker": "Suhas B Mahesh",
       "topic": "Geometry",
       "abstract_text": "We study the notions of causality and chronology on Lorentzian manifolds and extend these concepts to the setting of length spaces. These structures play a fundamental role in general relativity and in modern approaches to quantum gravity. We also introduce and analyze various topologies on such spaces, with an emphasis on how these topological choices influence the underlying physical interpretation. Throughout this seminar, we consider a spacetime $(M, \\bar{g})$, where $M$ is a smooth manifold equipped with a Lorentzian metric $\\bar{g}$ and a smooth, complete Riemannian metric $h$ on $M$.",
       "abstract": "assets/abstracts/suhas_abstract.pdf",
       "notes": "assets/notes/suhas_notes.pdf"
+    },
+    {
+      "date": "2026-08-18",
+      "title": "TBA",
+      "speaker": "Sohan Mishra",
+      "topic": "Analysis",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/sohan_abstract.pdf",
+      "notes": "assets/notes/sohan_notes.pdf"
     }
   ]
 }
