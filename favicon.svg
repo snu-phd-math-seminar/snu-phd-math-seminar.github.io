@@ -1,0 +1,13 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="4" fill="#f0ebe3" style="fill:rgb(240, 235, 227);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:17px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  
+  <!-- K -->
+  <text x="3" y="22" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2c1a1a" style="fill:rgb(44, 26, 26);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, serif;font-size:13px;font-weight:700;text-anchor:start;dominant-baseline:auto">K</text>
+  
+  <!-- Arrow -->
+  <line x1="14" y1="16" x2="19" y2="16" stroke="#8b1a1a" stroke-width="1.5" stroke-linecap="round" style="fill:rgb(0, 0, 0);stroke:rgb(139, 26, 26);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:17px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <polyline points="17,13.5 19.5,16 17,18.5" fill="none" stroke="#8b1a1a" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" style="fill:none;stroke:rgb(139, 26, 26);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:round;stroke-linejoin:round;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:17px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  
+  <!-- C -->
+  <text x="20" y="22" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#2c1a1a" style="fill:rgb(44, 26, 26);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, serif;font-size:13px;font-weight:700;text-anchor:start;dominant-baseline:auto">C</text>
+</svg>
