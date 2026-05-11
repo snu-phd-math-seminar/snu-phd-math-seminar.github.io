@@ -22,6 +22,18 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kernel → Cokernel Circle" />
+  <meta property="og:description" content="PhD Seminar Series · Department of Mathematics · Shiv Nadar Institute of Eminence · Every Thursday 12:00 PM" />
+  <meta property="og:url" content="https://snu-phd-math-seminar.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://snu-phd-math-seminar.github.io/favicon.svg" />
+  
+  <!-- Twitter/X card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Kernel → Cokernel Circle" />
+  <meta name="twitter:description" content="PhD Seminar Series · Department of Mathematics · Shiv Nadar Institute of Eminence" />
+  <meta name="twitter:image" content="https://snu-phd-math-seminar.github.io/favicon.svg" />
 </head>
 
 <body>
@@ -32,7 +44,7 @@
     <h1>Kernel $\rightarrow$ Cokernel Circle</h1>
     <div class="header-meta">
       <span>Academic Year 2025–26</span>
-      <span>Every Thursday, 12:00 – 01:-00 PM</span>
+      <span>Every Thursday, 12:00 – 01:00 PM</span>
       <span>Lecture Hall: B113</span>
     </div>
   </div>
@@ -352,6 +364,32 @@ fetch('data.json')
   })
   .catch(err => console.error("Failed to load data.json:", err));
 </script>
-
+  <script>
+    const lightbox      = document.getElementById("lightbox");
+    const lightboxImg   = document.getElementById("lightbox-img");
+    const lightboxClose = document.getElementById("lightbox-close");
+  
+    document.querySelectorAll(".gallery-grid img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("active");
+      });
+    });
+  
+    lightboxClose.addEventListener("click", () => lightbox.classList.remove("active"));
+    lightbox.addEventListener("click", e => {
+      if (e.target === lightbox) lightbox.classList.remove("active");
+    });
+  
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") lightbox.classList.remove("active");
+    });
+  </script>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt=""/>
+  </div>
 </body>
 </html>
