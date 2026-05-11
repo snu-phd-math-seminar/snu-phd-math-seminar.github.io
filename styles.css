@@ -269,6 +269,38 @@ section h2 {
   transform: scale(1.03);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
+/* Lightbox overlay */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+.lightbox.active {
+  display: flex;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.lightbox-close {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+.gallery-grid img {
+  cursor: pointer;
+}
 
 /* ── Past Lectures (ACADEMIC LIST STYLE) ── */
 .empty-note {
