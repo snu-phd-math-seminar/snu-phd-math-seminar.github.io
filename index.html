@@ -364,11 +364,18 @@ fetch('data.json')
   })
   .catch(err => console.error("Failed to load data.json:", err));
 </script>
+<!-- Lightbox HTML -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt=""/>
+  </div>
+
+  <!-- Lightbox Script -->
   <script>
     const lightbox      = document.getElementById("lightbox");
     const lightboxImg   = document.getElementById("lightbox-img");
     const lightboxClose = document.getElementById("lightbox-close");
-  
+
     document.querySelectorAll(".gallery-grid img").forEach(img => {
       img.addEventListener("click", () => {
         lightboxImg.src = img.src;
@@ -376,20 +383,16 @@ fetch('data.json')
         lightbox.classList.add("active");
       });
     });
-  
+
     lightboxClose.addEventListener("click", () => lightbox.classList.remove("active"));
     lightbox.addEventListener("click", e => {
       if (e.target === lightbox) lightbox.classList.remove("active");
     });
-  
+
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") lightbox.classList.remove("active");
     });
   </script>
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="lightbox-close" id="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="" alt=""/>
-  </div>
+
 </body>
 </html>
