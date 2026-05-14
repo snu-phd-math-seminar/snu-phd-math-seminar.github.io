@@ -127,6 +127,13 @@
 <!-- SCHEDULE -->
 <section id="schedule">
   <h2>Full Schedule 2025–26</h2>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="geometry">Geometry</button>
+    <button class="filter-btn" data-filter="algebra">Algebra</button>
+    <button class="filter-btn" data-filter="data science">Data Science</button>
+    <button class="filter-btn" data-filter="analysis">Analysis</button>
+  </div>
   <table class="schedule-table">
     <thead>
       <tr>
@@ -252,6 +259,19 @@ fetch('data.json')
           day: 'numeric', month: 'short', year: 'numeric'
         });
         const isPast = lecDate < today;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('#schedule-body tr').forEach(row => {
+          row.style.display =
+            filter === 'all' || row.dataset.topic.includes(filter)
+              ? '' : 'none';
+        });
+      });
+    });
 
         // ── UPCOMING (first one only) ──────────────────────────────────────
         if (!isPast && !upcomingShown) {
@@ -280,7 +300,7 @@ fetch('data.json')
 
         // ── SCHEDULE (all entries, ascending) ─────────────────────────────
         scheduleBody.innerHTML += `
-          <tr>
+          <tr data-topic="${(lec.topic || '').toLowerCase()}">
             <td class="date-cell">${formattedDate}</td>
             <td>${lec.speaker || ""}</td>
             <td>${lec.topic || ""}</td>
