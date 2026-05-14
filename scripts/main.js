@@ -122,17 +122,21 @@ function initFilters() {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      const filter = btn.dataset.filter;
+      const filterString = btn.dataset.filter;
+      const filterTerms = filterString.split(','); 
       
       // Filter rows
       scheduleRows.forEach(row => {
-        const topicMatch = row.dataset.topic.includes(filter);
-        row.style.display = (filter === 'all' || topicMatch) ? '' : 'none';
+        const rowTopic = row.dataset.topic;
+        
+        // .some() checks if AT LEAST ONE of the filter terms is inside the topic
+        const topicMatch = filterTerms.some(term => rowTopic.includes(term.trim()));
+        
+        row.style.display = (filterString === 'all' || topicMatch) ? '' : 'none';
       });
     });
   });
 }
-
 // ==========================================
 // 5. DATA FETCHING & RENDERING ENGINE
 // ==========================================
