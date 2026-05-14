@@ -663,3 +663,7 @@ footer {
   padding-top: 0.75rem;
   border-top: 1px solid var(--rule);
 }
+.announcement-body a {
+  color: var(--accent);
+  text-decoration: underline;
+}
