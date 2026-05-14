@@ -95,16 +95,27 @@ function createUpcomingHTML(lec, formattedDate) {
 
 function createPastEntryHTML(entry) {
   const { lec, formattedDate } = entry;
+
+  // 1. Bulletproof checks: Only true if the field exists, isn't empty spaces, and isn't "N/A"
+  const hasAbstract = lec.abstract && lec.abstract.trim() !== "" && lec.abstract.trim().toUpperCase() !== "N/A" && lec.abstract.trim() !== "#";
+  const hasNotes = lec.notes && lec.notes.trim() !== "" && lec.notes.trim().toUpperCase() !== "N/A" && lec.notes.trim() !== "#";
+  
+  // 2. Clean up Speaker and Topic so "N/A" doesn't show up as text/tags
+  const showSpeaker = lec.speaker && lec.speaker.trim() !== "" && lec.speaker.trim().toUpperCase() !== "N/A";
+  const showTopic = lec.topic && lec.topic.trim() !== "" && lec.topic.trim().toUpperCase() !== "N/A";
+
   return `
     <div class="seminar-entry">
       <div class="seminar-date">${formattedDate}</div>
       <div class="seminar-info">
         <h3>${lec.title || ""}</h3>
-        <p class="speaker">${lec.speaker || ""}</p>
-        <span class="topic-tag">${lec.topic || ""}</span>
+        
+        ${showSpeaker ? `<p class="speaker">${lec.speaker}</p>` : ""}
+        ${showTopic ? `<span class="topic-tag">${lec.topic}</span>` : ""}
+        
         <div class="links">
-          ${lec.abstract ? `<a href="${lec.abstract}" target="_blank">Abstract</a>` : ''}
-          ${lec.notes    ? `<a href="${lec.notes}"    target="_blank">Notes</a>`    : ''}
+          ${hasAbstract ? `<a href="${lec.abstract}" target="_blank">Abstract</a>` : ''}
+          ${hasNotes    ? `<a href="${lec.notes}"    target="_blank">Notes</a>`    : ''}
         </div>
       </div>
     </div>
