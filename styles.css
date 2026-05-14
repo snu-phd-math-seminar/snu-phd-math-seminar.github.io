@@ -608,6 +608,7 @@ footer {
   border-left: 4px solid var(--ink-muted);
   padding: 1.75rem 2rem;
   background: var(--paper-warm);
+  margin-bottom: 3rem;
 }
 
 .announcement-header {
