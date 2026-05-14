@@ -159,7 +159,7 @@ function initFilters() {
 // ==========================================
 async function loadSeminarData() {
   try {
-    const res = await fetch('data/lectures.json');
+    const res = await fetch('data.json');
     const data = await res.json();
 
     const today = new Date();
