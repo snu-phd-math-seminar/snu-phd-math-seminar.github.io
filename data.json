@@ -82,6 +82,15 @@
       "notes": "assets/notes/bhadra2_notes.pdf"
     },
     {
+      "date": "2026-06-04",
+      "title": "TBA",
+      "speaker": "Leena Sarma",
+      "topic": "Optimization",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/leena_abstract.pdf",
+      "notes": "assets/notes/leena_notes.pdf"
+    },
+    {
       "date": "2026-06-11",
       "title": "Lorentzian Length Spaces",
       "speaker": "Suhas B Mahesh",
