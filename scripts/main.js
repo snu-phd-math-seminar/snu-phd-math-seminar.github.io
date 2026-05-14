@@ -268,7 +268,7 @@ function initDynamicYears() {
 
   // Determine the correct suffix (st, nd, rd, th)
   const ordinals = ["", "st", "nd", "rd", "th", "th"]; // Index matches the year
-  const yearText = `${yearInProgram}${ordinals[yearInProgram]} Year`;
+  const yearText = `${yearInProgram}${ordinals[yearInProgram]} Year PhD`;
 
   // Inject the organizer year into the HTML
   document.querySelectorAll('.dynamic-org-year').forEach(el => {
