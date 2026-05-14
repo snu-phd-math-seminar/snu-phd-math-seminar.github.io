@@ -1,4 +1,22 @@
 // ==========================================
+// 0. UTILITY FUNCTIONS
+// ==========================================
+function getAcademicYearInfo(dateObj) {
+  const month = dateObj.getMonth(); // 0 is Jan, 7 is Aug
+  let startYear = dateObj.getFullYear();
+  
+  // If month is before August, we are still in the previous academic year
+  if (month < 7) startYear -= 1; 
+  
+  const nextYearShort = (startYear + 1).toString().slice(-2);
+  
+  return {
+    string: `${startYear}–${nextYearShort}`, // e.g., "2025–26"
+    startYear: startYear                     // e.g., 2025
+  };
+}
+
+// ==========================================
 // 1. NAVIGATION SCROLL LOGIC
 // ==========================================
 function initNavigation() {
@@ -9,7 +27,6 @@ function initNavigation() {
     let currentSection = "";
     sections.forEach(section => {
       const rect = section.getBoundingClientRect();
-      // Check if section is near the top of the viewport
       if (rect.top <= 120 && rect.bottom >= 120) {
         currentSection = section.getAttribute("id");
       }
@@ -24,7 +41,7 @@ function initNavigation() {
   }
 
   window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink(); // Run once on load
+  updateActiveLink(); 
 }
 
 // ==========================================
@@ -114,22 +131,21 @@ function createScheduleRowHTML(lec, formattedDate, isPast) {
 // ==========================================
 function initFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const scheduleRows = document.querySelectorAll('#schedule-body tr');
+  // Target ALL table rows, including the dynamically generated archived ones
+  const scheduleRows = document.querySelectorAll('.schedule-table tbody tr');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Remove active class from all buttons, add to clicked
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
       const filterString = btn.dataset.filter;
+      // Split comma-separated keywords into an array
       const filterTerms = filterString.split(','); 
       
-      // Filter rows
       scheduleRows.forEach(row => {
         const rowTopic = row.dataset.topic;
-        
-        // .some() checks if AT LEAST ONE of the filter terms is inside the topic
+        // Check if AT LEAST ONE of the filter terms matches the row's topic
         const topicMatch = filterTerms.some(term => rowTopic.includes(term.trim()));
         
         row.style.display = (filterString === 'all' || topicMatch) ? '' : 'none';
@@ -137,76 +153,122 @@ function initFilters() {
     });
   });
 }
+
 // ==========================================
 // 5. DATA FETCHING & RENDERING ENGINE
 // ==========================================
 async function loadSeminarData() {
   try {
-    const res = await fetch('data.json');
+    const res = await fetch('data/lectures.json');
     const data = await res.json();
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const currentAcademicYear = getAcademicYearInfo(today).string;
+
     const upcomingContainer = document.getElementById("upcoming-container");
     const pastContainer = document.getElementById("past-container");
     const scheduleBody = document.getElementById("schedule-body");
+    const archiveContainer = document.getElementById("archive-container");
+    
     const INITIAL_SHOW = 3;
 
-    // Sort ascending for schedule + upcoming logic
+    // Sort ascending
     const sorted = data.lectures.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     let upcomingShown = false;
     const pastLectures = [];
-    let scheduleHTML = "";
+    const scheduleBuckets = {}; // Stores arrays of HTML rows by year
 
-    // Process all lectures
     sorted.forEach(lec => {
       const lecDate = new Date(lec.date);
       const formattedDate = lecDate.toLocaleDateString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric'
       });
       const isPast = lecDate < today;
+      
+      // Determine bucket for this lecture
+      const lecAcademicYear = getAcademicYearInfo(lecDate).string;
+      if (!scheduleBuckets[lecAcademicYear]) {
+        scheduleBuckets[lecAcademicYear] = [];
+      }
 
-      // ── UPCOMING (first future lecture only) ──
+      // ── UPCOMING ──
       if (!isPast && !upcomingShown) {
         upcomingContainer.innerHTML = createUpcomingHTML(lec, formattedDate);
         if (window.MathJax) MathJax.typesetPromise([upcomingContainer]);
         upcomingShown = true;
       }
 
-      // ── PAST ARRAY (collect for later) ──
+      // ── PAST GLOBAL LIST ──
       if (isPast) {
         pastLectures.push({ lec, formattedDate });
       }
 
-      // ── SCHEDULE ROW ──
-      scheduleHTML += createScheduleRowHTML(lec, formattedDate, isPast);
+      // ── SCHEDULE BUCKETING ──
+      scheduleBuckets[lecAcademicYear].push(
+        createScheduleRowHTML(lec, formattedDate, isPast)
+      );
     });
 
-    // Inject schedule HTML and initialize filters
-    scheduleBody.innerHTML = scheduleHTML;
+    // ── RENDER MAIN SCHEDULE (Current Year Only) ──
+    if (scheduleBuckets[currentAcademicYear]) {
+      scheduleBody.innerHTML = scheduleBuckets[currentAcademicYear].join('');
+    } else {
+      scheduleBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No lectures scheduled yet for the ${currentAcademicYear} academic year.</td></tr>`;
+    }
+
+    // ── RENDER ARCHIVES (Previous Years) ──
+    if (archiveContainer) {
+      const archivedYears = Object.keys(scheduleBuckets)
+        .filter(year => year !== currentAcademicYear)
+        .sort()
+        .reverse();
+
+      let archiveHTML = '';
+      archivedYears.forEach(year => {
+        archiveHTML += `
+          <details class="archive-schedule">
+            <summary>View ${year} Schedule</summary>
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Speaker</th>
+                  <th>Topic</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${scheduleBuckets[year].join('')}
+              </tbody>
+            </table>
+          </details>
+        `;
+      });
+      archiveContainer.innerHTML = archiveHTML;
+    }
+
+    // Initialize filters AFTER all tables are built
     initFilters();
 
-    // Fallback if no upcoming
     if (!upcomingShown) {
       upcomingContainer.innerHTML = "<p>No upcoming seminar scheduled.</p>";
     }
 
     // ── RENDER PAST LECTURES (Descending with Show More) ──
-    pastLectures.reverse(); // newest first
+    pastLectures.reverse(); 
 
     if (pastLectures.length === 0) {
       pastContainer.innerHTML = `<p class="empty-note">No past lectures yet. Check back after the first seminar.</p>`;
     } else {
-      // Render initial batch
       let pastHTML = "";
       pastLectures.slice(0, INITIAL_SHOW).forEach(entry => {
         pastHTML += createPastEntryHTML(entry);
       });
       pastContainer.innerHTML = pastHTML;
 
-      // Render "Show More" button if needed
       if (pastLectures.length > INITIAL_SHOW) {
         const remaining = pastLectures.length - INITIAL_SHOW;
         const showMoreBtn = document.createElement("button");
@@ -221,13 +283,12 @@ async function loadSeminarData() {
           });
           showMoreBtn.remove();
         });
-
         pastContainer.appendChild(showMoreBtn);
       }
     }
 
   } catch (err) {
-    console.error("Failed to load data.json:", err);
+    console.error("Failed to load data:", err);
   }
 }
 
@@ -236,45 +297,26 @@ async function loadSeminarData() {
 // ==========================================
 function initDynamicYears() {
   const today = new Date();
-  const currentMonth = today.getMonth(); // 0 is Jan, 11 is Dec
-  const currentYear = today.getFullYear();
+  const currentYearInfo = getAcademicYearInfo(today);
   
-  // 1. Calculate Academic Year
-  // Indian academic years typically roll over around August.
-  // If the current month is before August (month index 7), 
-  // we are still in the previous year's academic session.
-  let academicStartYear = currentYear;
-  if (currentMonth < 7) { 
-    academicStartYear -= 1;
-  }
-  
-  // Create the string (e.g., "2026" + "–" + "27" -> "2026–27")
-  const nextYearShort = (academicStartYear + 1).toString().slice(-2);
-  const academicYearString = `${academicStartYear}–${nextYearShort}`;
-  
-  // Inject the academic year into the HTML
   document.querySelectorAll('.dynamic-academic-year').forEach(el => {
-    el.textContent = academicYearString;
+    el.textContent = currentYearInfo.string;
   });
 
-  // 2. Calculate Organizer Year
-  // We set the baseline: This cohort started their 1st year in the 2025 academic session.
   const cohortStartYear = 2025; 
-  let yearInProgram = (academicStartYear - cohortStartYear) + 1;
+  let yearInProgram = (currentYearInfo.startYear - cohortStartYear) + 1;
   
-  // Cap the display at 5th year (and ensure it doesn't go below 1)
   if (yearInProgram > 5) yearInProgram = 5;
   if (yearInProgram < 1) yearInProgram = 1;
 
-  // Determine the correct suffix (st, nd, rd, th)
-  const ordinals = ["", "st", "nd", "rd", "th", "th"]; // Index matches the year
+  const ordinals = ["", "st", "nd", "rd", "th", "th"];
   const yearText = `${yearInProgram}${ordinals[yearInProgram]} Year PhD`;
 
-  // Inject the organizer year into the HTML
   document.querySelectorAll('.dynamic-org-year').forEach(el => {
     el.textContent = yearText;
   });
 }
+
 // ==========================================
 // 7. INITIALIZE APPLICATION
 // ==========================================
