@@ -583,7 +583,42 @@ section h2 {
   background: var(--accent);
   color: #fff;
 }
+.subscribe-row {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
 
+.subscribe-row .subscribe-section {
+  flex: 1;
+  margin-top: 0;
+}
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.filter-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
 /* ── Footer ── */
 footer {
   border-top: 1px solid var(--rule);
