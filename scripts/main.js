@@ -236,7 +236,7 @@ async function loadSeminarData() {
 // ==========================================
 function initDynamicYears() {
   const today = new Date();
-  const currentMonth = 7; // 0 is Jan, 11 is Dec
+  const currentMonth = today.getMonth(); // 0 is Jan, 11 is Dec
   const currentYear = today.getFullYear();
   
   // 1. Calculate Academic Year
