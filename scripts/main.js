@@ -232,10 +232,55 @@ async function loadSeminarData() {
 }
 
 // ==========================================
-// 6. INITIALIZE APPLICATION
+// 6. DYNAMIC TIME & COHORT TRACKING
+// ==========================================
+function initDynamicYears() {
+  const today = new Date();
+  const currentMonth = 7; // 0 is Jan, 11 is Dec
+  const currentYear = today.getFullYear();
+  
+  // 1. Calculate Academic Year
+  // Indian academic years typically roll over around August.
+  // If the current month is before August (month index 7), 
+  // we are still in the previous year's academic session.
+  let academicStartYear = currentYear;
+  if (currentMonth < 7) { 
+    academicStartYear -= 1;
+  }
+  
+  // Create the string (e.g., "2026" + "–" + "27" -> "2026–27")
+  const nextYearShort = (academicStartYear + 1).toString().slice(-2);
+  const academicYearString = `${academicStartYear}–${nextYearShort}`;
+  
+  // Inject the academic year into the HTML
+  document.querySelectorAll('.dynamic-academic-year').forEach(el => {
+    el.textContent = academicYearString;
+  });
+
+  // 2. Calculate Organizer Year
+  // We set the baseline: This cohort started their 1st year in the 2025 academic session.
+  const cohortStartYear = 2025; 
+  let yearInProgram = (academicStartYear - cohortStartYear) + 1;
+  
+  // Cap the display at 5th year (and ensure it doesn't go below 1)
+  if (yearInProgram > 5) yearInProgram = 5;
+  if (yearInProgram < 1) yearInProgram = 1;
+
+  // Determine the correct suffix (st, nd, rd, th)
+  const ordinals = ["", "st", "nd", "rd", "th", "th"]; // Index matches the year
+  const yearText = `${yearInProgram}${ordinals[yearInProgram]} Year`;
+
+  // Inject the organizer year into the HTML
+  document.querySelectorAll('.dynamic-org-year').forEach(el => {
+    el.textContent = yearText;
+  });
+}
+// ==========================================
+// 7. INITIALIZE APPLICATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initLightbox();
+  initDynamicYears();
   loadSeminarData();
 });
