@@ -628,6 +628,40 @@ footer {
   font-size: 11px;
   color: var(--ink-faint);
 }
+/* --- Archive Dropdowns --- */
+.archive-schedule {
+  margin-top: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.archive-schedule summary {
+  padding: 1rem;
+  background-color: #fafafa;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none; /* Hides default arrow in some browsers */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Custom arrow for the dropdown */
+.archive-schedule summary::after {
+  content: "▼";
+  font-size: 0.8rem;
+  color: #666;
+  transition: transform 0.2s ease;
+}
+
+.archive-schedule[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.archive-schedule[open] summary {
+  border-bottom: 1px solid #e0e0e0;
+}
 
 /* ── Responsive ── */
 @media (max-width: 700px) {
