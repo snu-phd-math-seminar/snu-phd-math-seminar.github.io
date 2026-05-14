@@ -9,7 +9,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/main.css">
 
   <!-- MathJax -->
   <script>
@@ -21,6 +21,7 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script src="scripts/main.js" defer></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <!-- Open Graph -->
   <meta property="og:title" content="Kernel → Cokernel Circle" />
@@ -206,203 +207,10 @@
 <footer>
   Mathematics Seminar Series · Shiv Nadar Institute of Eminence · 2025–26
 </footer>
-
-<!-- NAV SCROLL -->
-<script>
-  const sections = document.querySelectorAll("main section");
-  const navLinks = document.querySelectorAll("nav a");
-
-  function updateActiveLink() {
-    let currentSection = "";
-    sections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top <= 120 && rect.bottom >= 120) {
-        currentSection = section.getAttribute("id");
-      }
-    });
-    navLinks.forEach(link => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === "#" + currentSection) {
-        link.classList.add("active");
-      }
-    });
-  }
-
-  window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink();
-</script>
-
-<!-- DYNAMIC ENGINE -->
-<script>
-fetch('data.json')
-  .then(res => res.json())
-  .then(data => {
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const upcomingContainer = document.getElementById("upcoming-container");
-    const pastContainer     = document.getElementById("past-container");
-    const scheduleBody      = document.getElementById("schedule-body");
-
-    const INITIAL_SHOW = 3;
-
-    // Sort ascending for schedule + upcoming logic
-    const sorted = data.lectures.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    let upcomingShown = false;
-    const pastLectures = [];
-
-    sorted.forEach(lec => {
-      try {
-        const lecDate       = new Date(lec.date);
-        const formattedDate = lecDate.toLocaleDateString('en-GB', {
-          day: 'numeric', month: 'short', year: 'numeric'
-        });
-        const isPast = lecDate < today;
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    
-        const filter = btn.dataset.filter;
-        document.querySelectorAll('#schedule-body tr').forEach(row => {
-          row.style.display =
-            filter === 'all' || row.dataset.topic.includes(filter)
-              ? '' : 'none';
-        });
-      });
-    });
-
-        // ── UPCOMING (first one only) ──────────────────────────────────────
-        if (!isPast && !upcomingShown) {
-          upcomingContainer.innerHTML = `
-            <div class="upcoming-card">
-              <p class="tag">Next · ${formattedDate}</p>
-              <h3>${lec.title || ""}</h3>
-              <p class="speaker">Presented by ${lec.speaker || ""}</p>
-              <p class="date-line">${formattedDate} · 12:00 PM · Hall B113</p>
-              ${lec.abstract_text ? `
-                <div class="abstract-box">
-                  <h4>Abstract</h4>
-                  <p>${lec.abstract_text}</p>
-                </div>
-              ` : ''}
-            </div>
-          `;
-          if (window.MathJax) MathJax.typesetPromise([upcomingContainer]);
-          upcomingShown = true;
-        }
-
-        // ── Collect past entries ───────────────────────────────────────────
-        if (isPast) {
-          pastLectures.push({ lec, formattedDate });
-        }
-
-        // ── SCHEDULE (all entries, ascending) ─────────────────────────────
-        scheduleBody.innerHTML += `
-          <tr data-topic="${(lec.topic || '').toLowerCase()}">
-            <td class="date-cell">${formattedDate}</td>
-            <td>${lec.speaker || ""}</td>
-            <td>${lec.topic || ""}</td>
-            <td>
-              <span class="status-badge ${isPast ? 'badge-done' : 'badge-upcoming'}">
-                ${isPast ? 'Completed' : 'Upcoming'}
-              </span>
-            </td>
-          </tr>
-        `;
-
-      } catch (err) {
-        console.error("Error rendering lecture:", lec, err);
-      }
-    });
-
-    if (!upcomingShown) {
-      upcomingContainer.innerHTML = "<p>No upcoming seminar scheduled.</p>";
-    }
-
-    // ── PAST — render descending, with Show More ───────────────────────────
-    pastLectures.reverse(); // newest first
-
-    function renderPastEntry({ lec, formattedDate }) {
-      return `
-        <div class="seminar-entry">
-          <div class="seminar-date">${formattedDate}</div>
-          <div class="seminar-info">
-            <h3>${lec.title || ""}</h3>
-            <p class="speaker">${lec.speaker || ""}</p>
-            <span class="topic-tag">${lec.topic || ""}</span>
-            <div class="links">
-              ${lec.abstract ? `<a href="${lec.abstract}" target="_blank">Abstract</a>` : ''}
-              ${lec.notes    ? `<a href="${lec.notes}"    target="_blank">Notes</a>`    : ''}
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    if (pastLectures.length === 0) {
-      pastContainer.innerHTML = `<p class="empty-note">No past lectures yet. Check back after the first seminar.</p>`;
-    } else {
-      // Render initial batch
-      pastLectures.slice(0, INITIAL_SHOW).forEach(entry => {
-        pastContainer.innerHTML += renderPastEntry(entry);
-      });
-
-      // Show More button (only if there are hidden entries)
-      if (pastLectures.length > INITIAL_SHOW) {
-        const remaining = pastLectures.length - INITIAL_SHOW;
-
-        const showMoreBtn = document.createElement("button");
-        showMoreBtn.textContent = `Show ${remaining} more`;
-        showMoreBtn.className   = "show-more-btn";
-
-        showMoreBtn.addEventListener("click", () => {
-          pastLectures.slice(INITIAL_SHOW).forEach(entry => {
-            const temp = document.createElement("div");
-            temp.innerHTML = renderPastEntry(entry);
-            pastContainer.insertBefore(temp.firstElementChild, showMoreBtn);
-          });
-          showMoreBtn.remove();
-        });
-
-        pastContainer.appendChild(showMoreBtn);
-      }
-    }
-
-  })
-  .catch(err => console.error("Failed to load data.json:", err));
-</script>
 <!-- Lightbox HTML -->
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightbox-close">&times;</span>
     <img id="lightbox-img" src="" alt=""/>
   </div>
-
-  <!-- Lightbox Script -->
-  <script>
-    const lightbox      = document.getElementById("lightbox");
-    const lightboxImg   = document.getElementById("lightbox-img");
-    const lightboxClose = document.getElementById("lightbox-close");
-
-    document.querySelectorAll(".gallery-grid img").forEach(img => {
-      img.addEventListener("click", () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add("active");
-      });
-    });
-
-    lightboxClose.addEventListener("click", () => lightbox.classList.remove("active"));
-    lightbox.addEventListener("click", e => {
-      if (e.target === lightbox) lightbox.classList.remove("active");
-    });
-
-    document.addEventListener("keydown", e => {
-      if (e.key === "Escape") lightbox.classList.remove("active");
-    });
-  </script>
-
 </body>
 </html>
