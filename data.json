@@ -83,10 +83,10 @@
     },
     {
       "date": "2026-06-04",
-      "title": "Matrices",
+      "title": "Classes of Matrices and Their Applications to LCPs",
       "speaker": "Leena Sarma",
       "topic": "Optimization Theory",
-      "abstract_text": "",
+      "abstract_text": "The linear complementarity problem (LCP) refers to a particular optimization problem. It consists in finding a vector in a finite-dimensional real vector space that satisfies a certain system of inequalities. We present results pertaining to the existence and multiplicity of solutions to the linear complementarity problem with the help of a few matrix classes. This refers to the analytic approach, in which one relies on an equivalent formulation of the LCP as a certain familiar mathematical programming problem (such as a quadratic program or a fixed-point problem) and then invokes an existence theorem (which is presumably proven by other means) for the latter problem. We discuss some matrix classes, the relations existing among them, and a few important results that help in knowing the existence and multiplicity of the solutions of the LCP.",
       "abstract": "assets/abstracts/leena_abstract.pdf",
       "notes": ""
     },
