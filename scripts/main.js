@@ -136,6 +136,14 @@ function createScheduleRowHTML(lec, formattedDate, isPast) {
     </tr>
   `;
 }
+function createGalleryHTML(lec) {
+  return `
+    <div class="gallery-item">
+      <img src="${lec.image}">
+      <p>${lec.speaker}</p>
+    </div>
+  `;
+}
 
 // ==========================================
 // 4. SCHEDULE FILTERING
