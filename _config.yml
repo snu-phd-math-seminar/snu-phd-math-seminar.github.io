@@ -1,8 +1,8 @@
 # ─────────────────────────────────────────────
 # Site Identity
 # ─────────────────────────────────────────────
-title: "Mathematics Seminar Series"
-description: "A PhD-led seminar series exploring advanced topics in mathematics."
+title: "Kernel → Cokernel Circle"
+description: "PhD Seminar Series, Department of Mathematics, Shiv Nadar Institute of Eminence."
 url: "https://snu-phd-math-seminar.github.io"  
 baseurl: ""                            
 # ─────────────────────────────────────────────
@@ -22,6 +22,7 @@ markdown: kramdown   # default GitHub Pages Markdown processor
 kramdown:
   math_engine: mathjax   # enables LaTeX in .md files if you add them later
 
+timezone: Asia/Kolkata
 # ─────────────────────────────────────────────
 # Plugins (all safe for GitHub Pages)
 # ─────────────────────────────────────────────
