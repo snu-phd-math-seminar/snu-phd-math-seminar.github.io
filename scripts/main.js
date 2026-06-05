@@ -230,14 +230,13 @@ async function loadSeminarData() {
       if (galleryGrid) {
         let galleryHTML = "";
       
-        sorted.forEach(lec => {
+        [...sorted].reverse().forEach(lec => {
           if (lec.image && lec.image.trim() !== "") {
             galleryHTML += createGalleryHTML(lec);
           }
         });
       
         galleryGrid.innerHTML = galleryHTML;
-        initGalleryCarousel();
         initLightbox();
       }
       const isPast = lecDate < today;
