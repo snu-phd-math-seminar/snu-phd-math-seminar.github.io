@@ -139,8 +139,7 @@ function createScheduleRowHTML(lec, formattedDate, isPast) {
 function createGalleryHTML(lec) {
   return `
     <div class="gallery-item">
-      <img src="${lec.image}">
-      <p>${lec.speaker}</p>
+      <img src="${lec.image}" alt="Seminar Photo">
     </div>
   `;
 }
@@ -190,6 +189,7 @@ async function loadSeminarData() {
     const pastContainer = document.getElementById("past-container");
     const scheduleBody = document.getElementById("schedule-body");
     const archiveContainer = document.getElementById("archive-container");
+    const galleryGrid = document.getElementById("gallery-grid");
     
     const INITIAL_SHOW = 3;
 
@@ -205,6 +205,19 @@ async function loadSeminarData() {
       const formattedDate = lecDate.toLocaleDateString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric'
       });
+      // ── GALLERY ──
+      if (galleryGrid) {
+        let galleryHTML = "";
+      
+        sorted.forEach(lec => {
+          if (lec.image && lec.image.trim() !== "") {
+            galleryHTML += createGalleryHTML(lec);
+          }
+        });
+      
+        galleryGrid.innerHTML = galleryHTML;
+        initLightbox();
+      }
       const isPast = lecDate < today;
       
       // Determine bucket for this lecture
@@ -341,7 +354,6 @@ function initDynamicYears() {
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
-  initLightbox();
   initDynamicYears();
   loadSeminarData();
 });
