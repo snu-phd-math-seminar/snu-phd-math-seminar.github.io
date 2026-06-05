@@ -143,6 +143,27 @@ function createGalleryHTML(lec) {
     </div>
   `;
 }
+function initGalleryCarousel() {
+  const track = document.getElementById("gallery-grid");
+  const prev = document.getElementById("gallery-prev");
+  const next = document.getElementById("gallery-next");
+
+  if (!track || !prev || !next) return;
+
+  prev.addEventListener("click", () => {
+    track.scrollBy({
+      left: -350,
+      behavior: "smooth"
+    });
+  });
+
+  next.addEventListener("click", () => {
+    track.scrollBy({
+      left: 350,
+      behavior: "smooth"
+    });
+  });
+}
 
 // ==========================================
 // 4. SCHEDULE FILTERING
@@ -217,6 +238,7 @@ async function loadSeminarData() {
       
         galleryGrid.innerHTML = galleryHTML;
         initLightbox();
+        initGalleryCarousel();
       }
       const isPast = lecDate < today;
       
