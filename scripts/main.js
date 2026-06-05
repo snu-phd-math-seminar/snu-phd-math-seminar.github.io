@@ -238,6 +238,7 @@ async function loadSeminarData() {
       
         galleryGrid.innerHTML = galleryHTML;
         initLightbox();
+        initGalleryCarousel();
       }
       const isPast = lecDate < today;
       
