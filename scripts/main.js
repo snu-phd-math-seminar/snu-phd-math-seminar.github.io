@@ -237,8 +237,8 @@ async function loadSeminarData() {
         });
       
         galleryGrid.innerHTML = galleryHTML;
-        initLightbox();
         initGalleryCarousel();
+        initLightbox();
       }
       const isPast = lecDate < today;
       
