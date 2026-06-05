@@ -283,6 +283,48 @@ section h2 {
   transform: scale(1.03);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
+.gallery-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+}
+
+.gallery-item img {
+  width: 320px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.gallery-nav {
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 1.5rem;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
 
 /* ── Lightbox ── */
 .lightbox {
