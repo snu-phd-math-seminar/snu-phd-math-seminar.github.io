@@ -91,10 +91,19 @@
       "notes": ""
     },
     {
+      "date": "2026-06-11",
+      "title": "TBA",
+      "speaker": "Shivani Mishra",
+      "topic": "Geometry",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/shivani_abstract.pdf",
+      "notes": ""
+    },
+    {
       "date": "2026-06-18",
       "title": "TBA",
       "speaker": "Sohan Mishra",
-      "topic": "Analysis",
+      "topic": "Functional Analysis",
       "abstract_text": "",
       "abstract": "assets/abstracts/sohan_abstract.pdf",
       "notes": ""
