@@ -54,22 +54,22 @@ function initLightbox() {
 
   if (!lightbox || !lightboxImg || !lightboxClose) return;
 
-  document.querySelectorAll(".gallery-grid img").forEach(img => {
-    img.addEventListener("click", () => {
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".gallery-item img")) {
+      lightboxImg.src = e.target.src;
+      lightboxImg.alt = e.target.alt;
       lightbox.classList.add("active");
-    });
+    }
   });
 
-  lightboxClose.addEventListener("click", () => lightbox.classList.remove("active"));
-  
-  lightbox.addEventListener("click", e => {
-    if (e.target === lightbox) lightbox.classList.remove("active");
+  lightboxClose.addEventListener("click", () => {
+    lightbox.classList.remove("active");
   });
 
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") lightbox.classList.remove("active");
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove("active");
+    }
   });
 }
 
