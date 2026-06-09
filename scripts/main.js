@@ -143,6 +143,8 @@ function createGalleryHTML(lec) {
     </div>
   `;
 }
+let autoSlideInterval;
+
 function initGalleryCarousel() {
   const track = document.getElementById("gallery-grid");
   const prev = document.getElementById("gallery-prev");
@@ -150,19 +152,65 @@ function initGalleryCarousel() {
 
   if (!track || !prev || !next) return;
 
-  prev.addEventListener("click", () => {
-    track.scrollBy({
-      left: -350,
-      behavior: "smooth"
-    });
-  });
+  // Remove any previous timer
+  clearInterval(autoSlideInterval);
 
-  next.addEventListener("click", () => {
-    track.scrollBy({
-      left: 350,
-      behavior: "smooth"
-    });
-  });
+  function scrollNext() {
+    const maxScroll = track.scrollWidth - track.clientWidth;
+
+    if (track.scrollLeft >= maxScroll - 5) {
+      track.scrollTo({
+        left: 0,
+        behavior: "smooth"
+      });
+    } else {
+      track.scrollBy({
+        left: 350,
+        behavior: "smooth"
+      });
+    }
+  }
+
+  function scrollPrev() {
+    if (track.scrollLeft <= 5) {
+      track.scrollTo({
+        left: track.scrollWidth,
+        behavior: "smooth"
+      });
+    } else {
+      track.scrollBy({
+        left: -350,
+        behavior: "smooth"
+      });
+    }
+  }
+
+  function startAutoSlide() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(scrollNext, 3500);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlideInterval);
+  }
+
+  prev.onclick = () => {
+    scrollPrev();
+    startAutoSlide();
+  };
+
+  next.onclick = () => {
+    scrollNext();
+    startAutoSlide();
+  };
+
+  track.addEventListener("mouseenter", stopAutoSlide);
+  track.addEventListener("mouseleave", startAutoSlide);
+
+  track.addEventListener("touchstart", stopAutoSlide);
+  track.addEventListener("touchend", startAutoSlide);
+
+  startAutoSlide();
 }
 
 // ==========================================
