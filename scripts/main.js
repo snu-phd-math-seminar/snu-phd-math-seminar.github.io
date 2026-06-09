@@ -155,84 +155,82 @@ function initGalleryCarousel() {
 
     clearInterval(autoSlide);
 
-    const scrollAmount = 340;
+    const block = track.scrollWidth / 3;
+    const step = 340;
 
-    function resetIfNeeded() {
+    // Start from the middle copy
+    track.scrollLeft = block;
 
-        const halfway = track.scrollWidth / 2;
+    function normalize() {
 
-        if (track.scrollLeft >= halfway) {
-            track.scrollLeft -= halfway;
+        if (track.scrollLeft >= block * 2) {
+            track.scrollLeft -= block;
         }
 
         if (track.scrollLeft <= 0) {
-            track.scrollLeft += halfway;
+            track.scrollLeft += block;
         }
 
     }
 
-    function scrollNext() {
+    function moveRight() {
 
         track.scrollBy({
-            left: scrollAmount,
+            left: step,
             behavior: "smooth"
         });
 
-        setTimeout(resetIfNeeded, 500);
+        setTimeout(normalize, 450);
+
     }
 
-    function scrollPrev() {
+    function moveLeft() {
 
         track.scrollBy({
-            left: -scrollAmount,
+            left: -step,
             behavior: "smooth"
         });
 
-        setTimeout(resetIfNeeded, 500);
-    }
-
-    function startAuto() {
-
-        clearInterval(autoSlide);
-
-        autoSlide = setInterval(() => {
-
-            scrollNext();
-
-        }, 4000);
+        setTimeout(normalize, 450);
 
     }
 
-    function stopAuto() {
+    function restartAuto() {
 
         clearInterval(autoSlide);
+
+        autoSlide = setInterval(moveRight, 3500);
 
     }
 
     prev.onclick = () => {
 
-        scrollPrev();
-        startAuto();
+        moveLeft();
+        restartAuto();
 
     };
 
     next.onclick = () => {
 
-        scrollNext();
-        startAuto();
+        moveRight();
+        restartAuto();
 
     };
 
-    track.addEventListener("mouseenter", stopAuto);
-    track.addEventListener("mouseleave", startAuto);
+    track.addEventListener("mouseenter", () => {
+        clearInterval(autoSlide);
+    });
 
-    track.addEventListener("touchstart", stopAuto);
-    track.addEventListener("touchend", startAuto);
+    track.addEventListener("mouseleave", restartAuto);
 
-    // Start in the middle so scrolling works both ways
-    track.scrollLeft = track.scrollWidth / 2;
+    track.addEventListener("scroll", () => {
 
-    startAuto();
+        requestAnimationFrame(normalize);
+
+    });
+
+    restartAuto();
+
 }
 
 // ==========================================
@@ -331,13 +329,11 @@ async function loadSeminarData() {
         .filter(lec => lec.image && lec.image.trim() !== "");
       
       // Duplicate once for infinite scrolling
-      galleryLectures.forEach(lec => {
-        galleryHTML += createGalleryHTML(lec);
-      });
-      
-      galleryLectures.forEach(lec => {
-        galleryHTML += createGalleryHTML(lec);
-      });
+      for (let i = 0; i < 3; i++) {
+        galleryLectures.forEach(lec => {
+          galleryHTML += createGalleryHTML(lec);
+        });
+      }
       
       galleryGrid.innerHTML = galleryHTML;
       
