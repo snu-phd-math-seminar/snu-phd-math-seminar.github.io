@@ -296,27 +296,7 @@ async function loadSeminarData() {
       const formattedDate = lecDate.toLocaleDateString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric'
       });
-      // ── GALLERY ──
-      if (galleryGrid) {
-        let galleryHTML = "";
-
-        const galleryLectures = [...sorted]
-          .reverse()
-          .filter(lec => lec.image && lec.image.trim() !== "");
-        
-        // Duplicate once for infinite scrolling
-        galleryLectures.forEach(lec => {
-          galleryHTML += createGalleryHTML(lec);
-        });
-        
-        galleryLectures.forEach(lec => {
-          galleryHTML += createGalleryHTML(lec);
-        });
-        
-        galleryGrid.innerHTML = galleryHTML;
-        
-        initLightbox();
-        initGalleryCarousel();
+      
       const isPast = lecDate < today;
       
       // Determine bucket for this lecture
@@ -342,6 +322,28 @@ async function loadSeminarData() {
         createScheduleRowHTML(lec, formattedDate, isPast)
       );
     });
+    // ── GALLERY ──
+    if (galleryGrid) {
+      let galleryHTML = "";
+
+      const galleryLectures = [...sorted]
+        .reverse()
+        .filter(lec => lec.image && lec.image.trim() !== "");
+      
+      // Duplicate once for infinite scrolling
+      galleryLectures.forEach(lec => {
+        galleryHTML += createGalleryHTML(lec);
+      });
+      
+      galleryLectures.forEach(lec => {
+        galleryHTML += createGalleryHTML(lec);
+      });
+      
+      galleryGrid.innerHTML = galleryHTML;
+      
+      initLightbox();
+      initGalleryCarousel();
+    };
 
     // ── RENDER MAIN SCHEDULE (Current Year Only) ──
     if (scheduleBuckets[currentAcademicYear]) {
