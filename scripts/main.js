@@ -143,74 +143,96 @@ function createGalleryHTML(lec) {
     </div>
   `;
 }
-let autoSlideInterval;
+let autoSlide;
 
 function initGalleryCarousel() {
-  const track = document.getElementById("gallery-grid");
-  const prev = document.getElementById("gallery-prev");
-  const next = document.getElementById("gallery-next");
 
-  if (!track || !prev || !next) return;
+    const track = document.getElementById("gallery-grid");
+    const prev = document.getElementById("gallery-prev");
+    const next = document.getElementById("gallery-next");
 
-  // Remove any previous timer
-  clearInterval(autoSlideInterval);
+    if (!track || !prev || !next) return;
 
-  function scrollNext() {
-    const maxScroll = track.scrollWidth - track.clientWidth;
+    clearInterval(autoSlide);
 
-    if (track.scrollLeft >= maxScroll - 5) {
-      track.scrollTo({
-        left: 0,
-        behavior: "smooth"
-      });
-    } else {
-      track.scrollBy({
-        left: 350,
-        behavior: "smooth"
-      });
+    const scrollAmount = 340;
+
+    function resetIfNeeded() {
+
+        const halfway = track.scrollWidth / 2;
+
+        if (track.scrollLeft >= halfway) {
+            track.scrollLeft -= halfway;
+        }
+
+        if (track.scrollLeft <= 0) {
+            track.scrollLeft += halfway;
+        }
+
     }
-  }
 
-  function scrollPrev() {
-    if (track.scrollLeft <= 5) {
-      track.scrollTo({
-        left: track.scrollWidth,
-        behavior: "smooth"
-      });
-    } else {
-      track.scrollBy({
-        left: -350,
-        behavior: "smooth"
-      });
+    function scrollNext() {
+
+        track.scrollBy({
+            left: scrollAmount,
+            behavior: "smooth"
+        });
+
+        setTimeout(resetIfNeeded, 500);
     }
-  }
 
-  function startAutoSlide() {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = setInterval(scrollNext, 3500);
-  }
+    function scrollPrev() {
 
-  function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-  }
+        track.scrollBy({
+            left: -scrollAmount,
+            behavior: "smooth"
+        });
 
-  prev.onclick = () => {
-    scrollPrev();
-    startAutoSlide();
-  };
+        setTimeout(resetIfNeeded, 500);
+    }
 
-  next.onclick = () => {
-    scrollNext();
-    startAutoSlide();
-  };
+    function startAuto() {
 
-  track.addEventListener("mouseenter", stopAutoSlide);
-  track.addEventListener("mouseleave", startAutoSlide);
+        clearInterval(autoSlide);
 
-  track.addEventListener("touchstart", stopAutoSlide);
-  track.addEventListener("touchend", startAutoSlide);
+        autoSlide = setInterval(() => {
 
-  startAutoSlide();
+            scrollNext();
+
+        }, 4000);
+
+    }
+
+    function stopAuto() {
+
+        clearInterval(autoSlide);
+
+    }
+
+    prev.onclick = () => {
+
+        scrollPrev();
+        startAuto();
+
+    };
+
+    next.onclick = () => {
+
+        scrollNext();
+        startAuto();
+
+    };
+
+    track.addEventListener("mouseenter", stopAuto);
+    track.addEventListener("mouseleave", startAuto);
+
+    track.addEventListener("touchstart", stopAuto);
+    track.addEventListener("touchend", startAuto);
+
+    // Start in the middle so scrolling works both ways
+    track.scrollLeft = track.scrollWidth / 2;
+
+    startAuto();
 }
 
 // ==========================================
@@ -277,17 +299,24 @@ async function loadSeminarData() {
       // ── GALLERY ──
       if (galleryGrid) {
         let galleryHTML = "";
-      
-        [...sorted].reverse().forEach(lec => {
-          if (lec.image && lec.image.trim() !== "") {
-            galleryHTML += createGalleryHTML(lec);
-          }
+
+        const galleryLectures = [...sorted]
+          .reverse()
+          .filter(lec => lec.image && lec.image.trim() !== "");
+        
+        // Duplicate once for infinite scrolling
+        galleryLectures.forEach(lec => {
+          galleryHTML += createGalleryHTML(lec);
         });
-      
+        
+        galleryLectures.forEach(lec => {
+          galleryHTML += createGalleryHTML(lec);
+        });
+        
         galleryGrid.innerHTML = galleryHTML;
+        
         initLightbox();
         initGalleryCarousel();
-      }
       const isPast = lecDate < today;
       
       // Determine bucket for this lecture
