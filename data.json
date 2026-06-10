@@ -97,10 +97,10 @@
     },
     {
       "date": "2026-06-11",
-      "title": "TBA",
+      "title": "An Introduction to Tangent Spaces and Derivations in \\(\\mathbb{R}^n\\)",
       "speaker": "Shivani Mishra",
       "topic": "Geometry",
-      "abstract_text": "",
+      "abstract_text": "In this presentation, we introduce the tangent space in $$\\mathbb{R}^n$$ from both geometric and algebraic viewpoints. We first define tangent vectors at a point $$p \\in \\mathbb{R}^n$$. We then introduce derivations at $$p$$, namely linear maps satisfying the Leibniz rule on smooth functions. Finally, we prove that these two constructions are naturally equivalent, establishing an isomorphism between the tangent space and the space of derivations. This provides the foundation for the notion of tangent spaces on smooth manifolds.",
       "abstract": "assets/abstracts/shivani_abstract.pdf",
       "notes": ""
     },
