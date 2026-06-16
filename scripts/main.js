@@ -414,7 +414,7 @@ async function loadSeminarData() {
             pastContainer.insertBefore(temp.firstElementChild, showMoreBtn);
           });
           if (window.MathJax) {
-            await MathJax.typesetPromise(inserted);
+            MathJax.typesetPromise(inserted);
           }
           showMoreBtn.remove();
         });
