@@ -106,16 +106,16 @@
     },
     {
       "date": "2026-06-18",
-      "title": "TBA",
+      "title": "Birkhoff–James Orthogonality: An Overview",
       "speaker": "Sohan Mishra",
       "topic": "Functional Analysis",
-      "abstract_text": "",
+      "abstract_text": "Geometry plays a fundamental role in mathematics, ranging from the study of physical space to the analysis of abstract normed linear spaces such as Banach and Hilbert spaces. This presentation focuses on one important geometric concept in normed linear spaces: Birkhoff–James orthogonality.\n\nUnlike Hilbert spaces, where orthogonality is naturally induced by an inner product and allows one to discuss angles and orientations, general normed linear spaces lack such a structure. To overcome this limitation, G. D. Birkhoff introduced a notion of orthogonality based solely on the norm, which was later systematically studied and developed by R. C. James. This concept, now known as Birkhoff–James orthogonality, provides a powerful geometric framework for the study of normed spaces.\n\nOver the past several decades, Birkhoff–James orthogonality has found numerous applications in functional analysis and related areas. Its influence extends to the theory of \\(C^*\\)-algebras and Hilbert \\(C^*\\)-modules, and it has played a significant role in the proof and development of results such as the Bhatia–Šemrl theorem. Beyond mathematics, notions inspired by Birkhoff–James orthogonality have also appeared in other scientific disciplines.\n\nThis talk presents an overview of the theory of Birkhoff–James orthogonality, highlighting its geometric significance and important applications.",
       "abstract": "assets/abstracts/sohan_abstract.pdf",
       "notes": ""
     },
     {
       "date": "2026-06-25",
-      "title": "Lorentzian Length Spaces",
+      "title": "Lorentzian Length Spaces (Session 2)",
       "speaker": "Suhas B Mahesh",
       "topic": "Geometry",
       "abstract_text": "We study the notions of causality and chronology on Lorentzian manifolds and extend these concepts to the setting of length spaces. These structures play a fundamental role in general relativity and in modern approaches to quantum gravity. We also introduce and analyze various topologies on such spaces, with an emphasis on how these topological choices influence the underlying physical interpretation. Throughout this seminar, we consider a spacetime $(M, \\bar{g})$, where $M$ is a smooth manifold equipped with a Lorentzian metric $\\bar{g}$ and a smooth, complete Riemannian metric $h$ on $M$.",
