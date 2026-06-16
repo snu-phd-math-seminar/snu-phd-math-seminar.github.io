@@ -397,6 +397,9 @@ async function loadSeminarData() {
         pastHTML += createPastEntryHTML(entry);
       });
       pastContainer.innerHTML = pastHTML;
+      if (window.MathJax) {
+          MathJax.typesetPromise([pastContainer]);
+      }
 
       if (pastLectures.length > INITIAL_SHOW) {
         const remaining = pastLectures.length - INITIAL_SHOW;
@@ -410,6 +413,9 @@ async function loadSeminarData() {
             temp.innerHTML = createPastEntryHTML(entry);
             pastContainer.insertBefore(temp.firstElementChild, showMoreBtn);
           });
+          if (window.MathJax) {
+            await MathJax.typesetPromise(inserted);
+          }
           showMoreBtn.remove();
         });
         pastContainer.appendChild(showMoreBtn);
