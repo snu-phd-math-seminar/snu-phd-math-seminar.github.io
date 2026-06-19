@@ -102,6 +102,7 @@
       "topic": "Geometry",
       "abstract_text": "In this presentation, we introduce the tangent space in \\(\\mathbb{R}^n\\) from both geometric and algebraic viewpoints. We first define tangent vectors at a point \\(p \\in \\mathbb{R}^n\\). We then introduce derivations at \\(p\\), namely linear maps satisfying the Leibniz rule on smooth functions. Finally, we prove that these two constructions are naturally equivalent, establishing an isomorphism between the tangent space and the space of derivations. This provides the foundation for the notion of tangent spaces on smooth manifolds.",
       "abstract": "assets/abstracts/shivani_abstract.pdf",
+      "image": "images/shivani.jpg",
       "notes": ""
     },
     {
@@ -111,6 +112,7 @@
       "topic": "Functional Analysis",
       "abstract_text": "Geometry plays a fundamental role in mathematics, ranging from the study of physical space to the analysis of abstract normed linear spaces such as Banach and Hilbert spaces. This presentation focuses on one important geometric concept in normed linear spaces: Birkhoff–James orthogonality. <br><br> Unlike Hilbert spaces, where orthogonality is naturally induced by an inner product and allows one to discuss angles and orientations, general normed linear spaces lack such a structure. To overcome this limitation, G. D. Birkhoff introduced a notion of orthogonality based solely on the norm, which was later systematically studied and developed by R. C. James. This concept, now known as Birkhoff–James orthogonality, provides a powerful geometric framework for the study of normed spaces. <br><br> Over the past several decades, Birkhoff–James orthogonality has found numerous applications in functional analysis and related areas. Its influence extends to the theory of \\(C^*\\)-algebras and Hilbert \\(C^*\\)-modules, and it has played a significant role in the proof and development of results such as the Bhatia–Šemrl theorem. Beyond mathematics, notions inspired by Birkhoff–James orthogonality have also appeared in other scientific disciplines. <br><br> This talk presents an overview of the theory of Birkhoff–James orthogonality, highlighting its geometric significance and important applications.",
       "abstract": "assets/abstracts/sohan_abstract.pdf",
+      "image": "images/sohan.jpg",
       "notes": ""
     },
     {
