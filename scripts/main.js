@@ -143,7 +143,7 @@ function createGalleryHTML(lec) {
     </div>
   `;
 }
-let galleryRAF = null;
+let galleryTimer = null;
 
 function initGalleryCarousel() {
 
@@ -154,63 +154,73 @@ function initGalleryCarousel() {
 
     if (!viewport || !track || !prev || !next) return;
 
-    if (galleryRAF) cancelAnimationFrame(galleryRAF);
+    if (galleryTimer) clearInterval(galleryTimer);
 
-    // Track is duplicated content (see loadSeminarData), so half its
-    // rendered width is exactly one full, non-duplicated image set.
-    const setWidth = track.scrollWidth / 2;
-    if (!setWidth) return;
+    // setCount = how many UNIQUE photos there are (track holds 3 copies
+    // back-to-back, see loadSeminarData). itemStep = px width of one
+    // item including its gap, measured from the actual rendered layout.
+    const setCount = parseInt(track.dataset.setCount, 10);
+    const totalItems = track.children.length;
+    if (!setCount || !totalItems) return;
+
+    const itemStep = track.scrollWidth / totalItems;
 
     const wrapperEl = viewport.closest(".gallery-wrapper") || viewport;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const SPEED = 40;            // px/sec, continuous drift speed
-    const NUDGE = 340;           // px per button click (~one item + gap)
-    const RESUME_DELAY = 2500;   // ms idle before auto-scroll resumes after a click
+    const STEP_INTERVAL = 3000;  // ms between automatic steps
+    const TRANSITION_MS = 600;
 
-    let offset = 0;
-    let lastTime = null;
+    // Start in the middle copy: gives room to step forward or backward
+    // before ever needing to wrap.
+    let stepIndex = setCount;
     let resumeTimer = null;
     const pauseReasons = new Set();
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        pauseReasons.add("reduced-motion");
-    }
 
     function setPaused(reason, isPaused) {
         if (isPaused) pauseReasons.add(reason);
         else pauseReasons.delete(reason);
-        lastTime = null; // avoid a big dt jump on resume
     }
 
-    function wrap(value) {
-        value %= setWidth;
-        if (value > 0) value -= setWidth;
-        return value;
+    function applyTransform(withTransition) {
+        track.style.transition = (withTransition && !reduceMotion)
+            ? `transform ${TRANSITION_MS}ms ease`
+            : "none";
+        track.style.transform = `translateX(${-stepIndex * itemStep}px)`;
     }
 
-    function applyOffset() {
-        track.style.transform = `translateX(${offset}px)`;
-    }
-
-    function frame(time) {
-        if (lastTime === null) lastTime = time;
-        const dt = (time - lastTime) / 1000;
-        lastTime = time;
-
-        if (pauseReasons.size === 0) {
-            offset = wrap(offset - SPEED * dt);
-            applyOffset();
+    // After reaching either edge of the 3-copy buffer, jump back by one
+    // full set (instant, no transition) to an identical-looking position
+    // — invisible to the viewer, since the copies are identical content.
+    function recenterIfNeeded() {
+        if (stepIndex <= 0) {
+            stepIndex += setCount;
+            applyTransform(false);
+            void track.offsetWidth; // force reflow before re-enabling transitions
+        } else if (stepIndex >= setCount * 2) {
+            stepIndex -= setCount;
+            applyTransform(false);
+            void track.offsetWidth;
         }
+    }
 
-        galleryRAF = requestAnimationFrame(frame);
+    function step(direction) {
+        stepIndex += direction;
+        applyTransform(true);
+        if (reduceMotion) recenterIfNeeded(); // no transitionend fires when motion is off
+    }
+
+    track.addEventListener("transitionend", recenterIfNeeded);
+
+    function tick() {
+        if (pauseReasons.size === 0) step(1);
     }
 
     function nudge(direction) {
-        offset = wrap(offset - direction * NUDGE);
-        applyOffset();
+        step(direction);
         setPaused("manual", true);
         clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(() => setPaused("manual", false), RESUME_DELAY);
+        resumeTimer = setTimeout(() => setPaused("manual", false), STEP_INTERVAL * 2);
     }
 
     prev.onclick = () => nudge(-1);
@@ -231,8 +241,8 @@ function initGalleryCarousel() {
         }).observe(wrapperEl);
     }
 
-    applyOffset();
-    galleryRAF = requestAnimationFrame(frame);
+    applyTransform(false);
+    galleryTimer = setInterval(tick, STEP_INTERVAL);
 }
 
 // ==========================================
@@ -328,12 +338,10 @@ async function loadSeminarData() {
         .reverse()
         .filter(lec => lec.image && lec.image.trim() !== "");
 
-      // Duplicate the set an EVEN number of times so the continuous
-      // marquee wraps seamlessly at the halfway point. Small photo
-      // counts get extra copies so the strip still fills the viewport.
-      const REPEATS = galleryLectures.length > 6 ? 2 : 4;
+      // 3 identical copies back-to-back: lets the stepper move forward
+      // OR backward and always snap invisibly when it hits an edge.
       let innerHTML = "";
-      for (let i = 0; i < REPEATS; i++) {
+      for (let i = 0; i < 3; i++) {
         galleryLectures.forEach(lec => {
           innerHTML += createGalleryHTML(lec);
         });
@@ -343,7 +351,8 @@ async function loadSeminarData() {
       // accessibly, in the Past Lectures list above — so hide this
       // repeated strip (and its now-redundant nav buttons) from
       // screen readers and the tab order.
-      galleryGrid.innerHTML = `<div class="gallery-track-inner">${innerHTML}</div>`;
+      galleryGrid.innerHTML =
+        `<div class="gallery-track-inner" data-set-count="${galleryLectures.length}">${innerHTML}</div>`;
       galleryGrid.closest(".gallery-wrapper")?.setAttribute("aria-hidden", "true");
       document.querySelectorAll("#gallery-prev, #gallery-next")
         .forEach(btn => btn.setAttribute("tabindex", "-1"));
