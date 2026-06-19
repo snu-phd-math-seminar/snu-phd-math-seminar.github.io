@@ -267,17 +267,19 @@ section h2 {
   align-items: center;
 }
 
+/* #gallery-grid: the fixed-width clipping viewport */
 .gallery-track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  width: 100%;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.gallery-track::-webkit-scrollbar {
-  display: none;
+/* .gallery-track-inner: the wide strip that actually moves (JS sets transform) */
+.gallery-track-inner {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  will-change: transform;
 }
 
 .gallery-item {
