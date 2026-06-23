@@ -244,6 +244,9 @@ function initGalleryCarousel() {
     applyTransform(false);
     galleryTimer = setInterval(tick, STEP_INTERVAL);
 }
+// in initDynamicYears() or DOMContentLoaded
+document.getElementById("announcement-date").textContent =
+  new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
 // ==========================================
 // 4. SCHEDULE FILTERING
@@ -403,7 +406,17 @@ async function loadSeminarData() {
     initFilters();
 
     if (!upcomingShown) {
-      upcomingContainer.innerHTML = "<p>No upcoming seminar scheduled.</p>";
+      upcomingContainer.innerHTML = `
+        <div class="upcoming-card">
+          <p class="tag">On Break</p>
+          <h3>No upcoming seminar scheduled</h3>
+          <p class="speaker">The seminar series is currently on a break.</p>
+          <p class="date-line">
+            Activities are expected to resume with the Monsoon 2026 semester.
+            See the <a href="#announcements">Announcements</a> section for details.
+          </p>
+        </div>
+      `;
     }
 
     // ── RENDER PAST LECTURES (Descending with Show More) ──
