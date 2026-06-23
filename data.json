@@ -114,15 +114,6 @@
       "abstract": "assets/abstracts/sohan_abstract.pdf",
       "image": "images/sohan.jpg",
       "notes": ""
-    },
-    {
-      "date": "2026-06-25",
-      "title": "Lorentzian Length Spaces (Session 2)",
-      "speaker": "Suhas B Mahesh",
-      "topic": "Geometry",
-      "abstract_text": "We study the notions of causality and chronology on Lorentzian manifolds and extend these concepts to the setting of length spaces. These structures play a fundamental role in general relativity and in modern approaches to quantum gravity. We also introduce and analyze various topologies on such spaces, with an emphasis on how these topological choices influence the underlying physical interpretation. Throughout this seminar, we consider a spacetime $(M, \\bar{g})$, where $M$ is a smooth manifold equipped with a Lorentzian metric $\\bar{g}$ and a smooth, complete Riemannian metric $h$ on $M$.",
-      "abstract": "assets/abstracts/suhas_abstract.pdf",
-      "notes": ""
     }
   ]
 }
