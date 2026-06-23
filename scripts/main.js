@@ -410,10 +410,6 @@ async function loadSeminarData() {
         <div class="upcoming-card">
           <p class="tag">On Break</p>
           <h3>No upcoming seminar scheduled</h3>
-          <p class="speaker">The seminar series is currently on a break.</p>
-          <p class="date-line">
-            Activities are expected to resume with the Monsoon 2026 semester.
-            See the <a href="#announcements">Announcements</a> section for details.
           </p>
         </div>
       `;
