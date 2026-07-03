@@ -82,7 +82,7 @@ function createUpcomingHTML(lec, formattedDate) {
       <p class="tag">Next · ${formattedDate}</p>
       <h3>${lec.title || ""}</h3>
       <p class="speaker">Presented by ${lec.speaker || ""}</p>
-      <p class="date-line">${formattedDate} · 12:00 PM · Hall B113</p>
+      <p class="date-line">${formattedDate} · 12:00 PM · Hall B108</p>
       ${lec.abstract_text ? `
         <div class="abstract-box">
           <h4>Abstract</h4>
@@ -114,8 +114,8 @@ function createPastEntryHTML(entry) {
         ${showTopic ? `<span class="topic-tag">${lec.topic}</span>` : ""}
         
         <div class="links">
-          ${hasAbstract ? `<a href="${lec.abstract}" target="_blank">Abstract</a>` : ''}
-          ${hasNotes    ? `<a href="${lec.notes}"    target="_blank">Notes</a>`    : ''}
+          ${hasAbstract ? `<a href="${lec.abstract}" target="_blank" rel="noopener noreferrer">Abstract</a>` : ''}
+          ${hasNotes    ? `<a href="${lec.notes}"    target="_blank" rel="noopener noreferrer">Notes</a>`    : ''}
         </div>
       </div>
     </div>
@@ -245,8 +245,15 @@ function initGalleryCarousel() {
     galleryTimer = setInterval(tick, STEP_INTERVAL);
 }
 // in initDynamicYears() or DOMContentLoaded
-document.getElementById("announcement-date").textContent =
-  new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const announcementDate = document.getElementById("announcement-date");
+
+if (announcementDate) {
+  announcementDate.textContent = new Date().toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}
 
 // ==========================================
 // 4. SCHEDULE FILTERING
