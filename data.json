@@ -114,6 +114,24 @@
       "abstract": "assets/abstracts/sohan_abstract.pdf",
       "image": "images/sohan.jpg",
       "notes": ""
-    }
+    },
+    {
+      "date": "2026-07-09",
+      "title": "Lorentzian Length Spaces (Session 2)",
+      "speaker": "Suhas B Mahesh",
+      "topic": "Geometry",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/suhas_abstract.pdf",
+      "notes": ""
+    },
+    {
+      "date": "2026-07-16",
+      "title": "TBA",
+      "speaker": "Deva Iyer",
+      "topic": "Geometry",
+      "abstract_text": "",
+      "abstract": "assets/abstracts/deva_abstract.pdf",
+      "notes": ""
+    },
   ]
 }
