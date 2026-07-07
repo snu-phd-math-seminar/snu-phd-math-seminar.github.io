@@ -86,7 +86,7 @@ function createUpcomingHTML(lec, formattedDate) {
       ${lec.abstract_text ? `
         <div class="abstract-box">
           <h4>Abstract</h4>
-          <p>${lec.abstract_text}</p>
+          <p class="abstract-text">${lec.abstract_text}</p>
         </div>
       ` : ''}
     </div>
