@@ -82,7 +82,7 @@ function createUpcomingHTML(lec, formattedDate) {
       <p class="tag">Next · ${formattedDate}</p>
       <h3>${lec.title || ""}</h3>
       <p class="speaker">Presented by ${lec.speaker || ""}</p>
-      <p class="date-line">${formattedDate} · 12:00 PM · Hall B108</p>
+      <p class="date-line">${formattedDate} · 12:00 PM · ${lec.location && lec.location.trim() !== "" ? lec.location : "Hall B108"}</p>
       ${lec.abstract_text ? `
         <div class="abstract-box">
           <h4>Abstract</h4>
@@ -100,9 +100,10 @@ function createPastEntryHTML(entry) {
   const hasAbstract = lec.abstract && lec.abstract.trim() !== "" && lec.abstract.trim().toUpperCase() !== "N/A" && lec.abstract.trim() !== "#";
   const hasNotes = lec.notes && lec.notes.trim() !== "" && lec.notes.trim().toUpperCase() !== "N/A" && lec.notes.trim() !== "#";
   
-  // 2. Clean up Speaker and Topic so "N/A" doesn't show up as text/tags
+  // 2. Clean up Speaker, Topic, Location so "N/A" doesn't show up as text/tags
   const showSpeaker = lec.speaker && lec.speaker.trim() !== "" && lec.speaker.trim().toUpperCase() !== "N/A";
   const showTopic = lec.topic && lec.topic.trim() !== "" && lec.topic.trim().toUpperCase() !== "N/A";
+  const showLocation = lec.location && lec.location.trim() !== "" && lec.location.trim().toUpperCase() !== "N/A";
 
   return `
     <div class="seminar-entry">
@@ -112,6 +113,7 @@ function createPastEntryHTML(entry) {
         
         ${showSpeaker ? `<p class="speaker">${lec.speaker}</p>` : ""}
         ${showTopic ? `<span class="topic-tag">${lec.topic}</span>` : ""}
+        ${showLocation ? `<p class="location-line">${lec.location}</p>` : ""}
         
         <div class="links">
           ${hasAbstract ? `<a href="${lec.abstract}" target="_blank" rel="noopener noreferrer">Abstract</a>` : ''}
