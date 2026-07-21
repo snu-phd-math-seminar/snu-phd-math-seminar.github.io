@@ -126,7 +126,7 @@
     },
     {
       "date": "2026-07-23",
-      "title": "Representations on \\(\\mathbf{SL}_2 \\mathbb{C}\\)",
+      "title": "Representations of \\(\\mathbf{SL}_2 \\mathbb{C}\\)",
       "speaker": "Deva Iyer",
       "topic": "Geometry",
       "abstract_text": "We will classify all representations of the Lie algebra \\(\\mathfrak{SL}_2 \\mathbb{C}\\), as shown in Fulton-Harris' book \"Representation Theory\". The only prerequisite is undergraduate linear algebra.",
