@@ -14,8 +14,8 @@ No one needs to touch JSON, git, or code directly.
    - `.github/ISSUE_TEMPLATE/edit-intro.yml`
    - `.github/workflows/add-talk.yml`
    - `.github/workflows/edit-intro.yml`
-   - `scripts/add_talk.py`
-   - `scripts/update_intro.py`
+   - `.github/scripts/add_talk.py`
+   - `.github/scripts/update_intro.py`
    - `intro.json` (only if you don't already have an intro file — see step 3)
 
 2. In your repo's **Settings → Actions → General → Workflow permissions**, make sure
