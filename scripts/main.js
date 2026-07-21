@@ -286,6 +286,23 @@ function initFilters() {
 }
 
 // ==========================================
+// 4b. INTRODUCTION TEXT
+// ==========================================
+async function loadIntro() {
+  const introEl = document.getElementById("intro");
+  if (!introEl) return;
+
+  try {
+    const res = await fetch('intro.json');
+    const data = await res.json();
+    introEl.innerHTML = data.introduction || "";
+    if (window.MathJax) MathJax.typesetPromise([introEl]);
+  } catch (err) {
+    console.error("Failed to load introduction:", err);
+  }
+}
+
+// ==========================================
 // 5. DATA FETCHING & RENDERING ENGINE
 // ==========================================
 async function loadSeminarData() {
@@ -496,5 +513,6 @@ function initDynamicYears() {
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initDynamicYears();
+  loadIntro();
   loadSeminarData();
 });
