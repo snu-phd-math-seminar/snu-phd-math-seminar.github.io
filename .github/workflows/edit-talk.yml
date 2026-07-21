@@ -1,0 +1,68 @@
+name: Edit Talk From Issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  edit-talk:
+    if: contains(github.event.issue.labels.*.name, 'edit-talk')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run edit_talk.py
+        id: edit_talk
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python .github/scripts/edit_talk.py
+        continue-on-error: true
+
+      - name: Commit and push changes
+        if: steps.edit_talk.outcome == 'success'
+        run: |
+          git config user.name "seminar-bot"
+          git config user.email "actions@github.com"
+          git add data.json assets/abstracts assets/notes images
+          git commit -m "Edit talk from issue #${{ github.event.issue.number }}" || echo "Nothing to commit"
+          git push
+
+      - name: Comment success and close issue
+        if: steps.edit_talk.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "✅ Talk updated and the site has been refreshed."
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
+
+      - name: Comment failure, leave issue open
+        if: steps.edit_talk.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "❌ Couldn't find a talk with that date. Please double-check the date matches exactly what's shown on the site (format YYYY-MM-DD), then close this issue and open a new \"Edit Talk\" issue with the correct date."
+            });
