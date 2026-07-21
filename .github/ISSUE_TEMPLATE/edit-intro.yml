@@ -1,0 +1,17 @@
+name: "✏️ Edit Introduction"
+description: Update the seminar series introduction / about text
+title: "[Edit Intro]"
+labels: ["edit-intro"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Paste the **full replacement text** for the introduction below (this will completely replace the current text, not append to it). Basic HTML like `<br>` is fine since the site already supports it.
+
+  - type: textarea
+    id: intro_text
+    attributes:
+      label: Introduction Text
+      placeholder: "The Kernel → Cokernel Circle is a PhD math seminar series at SNU..."
+    validations:
+      required: true
