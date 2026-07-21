@@ -493,17 +493,17 @@ function initDynamicYears() {
     el.textContent = currentYearInfo.string;
   });
 
-  const cohortStartYear = 2025; 
-  let yearInProgram = (currentYearInfo.startYear - cohortStartYear) + 1;
-  
-  if (yearInProgram > 5) yearInProgram = 5;
-  if (yearInProgram < 1) yearInProgram = 1;
-
   const ordinals = ["", "st", "nd", "rd", "th", "th"];
-  const yearText = `${yearInProgram}${ordinals[yearInProgram]} Year PhD`;
 
   document.querySelectorAll('.dynamic-org-year').forEach(el => {
-    el.textContent = yearText;
+    const startYear = parseInt(el.dataset.startYear || "2025", 10);
+  
+    let yearInProgram = (currentYearInfo.startYear - startYear) + 1;
+  
+    if (yearInProgram > 5) yearInProgram = 5;
+    if (yearInProgram < 1) yearInProgram = 1;
+  
+    el.textContent = `${yearInProgram}${ordinals[yearInProgram]} Year PhD`;
   });
 }
 
