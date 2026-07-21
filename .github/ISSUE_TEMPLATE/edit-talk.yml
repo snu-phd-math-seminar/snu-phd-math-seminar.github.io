@@ -1,0 +1,82 @@
+name: "🛠️ Edit Talk"
+description: Update an existing talk (found by its date)
+title: "[Edit Talk]: "
+labels: ["edit-talk"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Find the talk by its **current date** below, then only fill in the
+        fields you want to change. Leave everything else blank — blank
+        fields are left untouched, they will NOT erase existing data.
+
+  - type: input
+    id: target_date
+    attributes:
+      label: "Date of the talk to edit (YYYY-MM-DD) — as it currently appears on the site"
+      placeholder: "2026-08-06"
+    validations:
+      required: true
+
+  - type: input
+    id: new_title
+    attributes:
+      label: New Title (leave blank to keep current)
+    validations:
+      required: false
+
+  - type: input
+    id: new_speaker
+    attributes:
+      label: New Speaker (leave blank to keep current)
+    validations:
+      required: false
+
+  - type: input
+    id: new_date
+    attributes:
+      label: "New Date, YYYY-MM-DD (only if rescheduling — leave blank to keep current)"
+    validations:
+      required: false
+
+  - type: input
+    id: new_location
+    attributes:
+      label: New Location (leave blank to keep current)
+    validations:
+      required: false
+
+  - type: input
+    id: new_topic
+    attributes:
+      label: New Topic / Area (leave blank to keep current)
+    validations:
+      required: false
+
+  - type: textarea
+    id: new_abstract_text
+    attributes:
+      label: New Abstract text (leave blank to keep current)
+    validations:
+      required: false
+
+  - type: textarea
+    id: new_abstract_pdf
+    attributes:
+      label: New Abstract PDF (drag and drop, or paste a link/path — leave blank to keep current)
+    validations:
+      required: false
+
+  - type: textarea
+    id: new_image
+    attributes:
+      label: New Speaker Image (drag and drop — leave blank to keep current)
+    validations:
+      required: false
+
+  - type: textarea
+    id: new_notes_pdf
+    attributes:
+      label: New Notes PDF (drag and drop — commonly added after the talk; leave blank to keep current)
+    validations:
+      required: false
