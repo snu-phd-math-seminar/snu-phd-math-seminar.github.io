@@ -146,10 +146,10 @@
     },
     {
       "date": "2026-08-06",
-      "title": "TBA",
+      "title": "Entanglement Breaking Maps",
       "speaker": "Neha Hotwani",
       "topic": "Mathematical Physics",
-      "abstract_text": "",
+      "abstract_text": "This talk will provide an accessible introduction to entanglement-breaking maps, beginning with positive and completely positive maps between matrix algebras. We will explain their basic properties, examples, and significance in quantum information theory. The only prerequisite is basic matrix algebra.",
       "abstract": "assets/abstracts/neha_abstract.pdf",
       "notes": ""
     }
