@@ -74,6 +74,32 @@ function initLightbox() {
 }
 
 // ==========================================
+// 3b. ABSTRACT DROPDOWN TOGGLE (Past Lectures)
+// ==========================================
+function initAbstractToggles() {
+  const pastContainer = document.getElementById("past-container");
+  if (!pastContainer) return;
+
+  // Delegated listener: works for entries added later via "Show more"
+  pastContainer.addEventListener("click", (e) => {
+    const btn = e.target.closest(".abstract-toggle");
+    if (!btn) return;
+
+    const info = btn.closest(".seminar-info");
+    const dropdown = info ? info.querySelector(".abstract-dropdown") : null;
+    if (!dropdown) return;
+
+    const isOpen = dropdown.classList.toggle("open");
+    btn.classList.toggle("open", isOpen);
+    btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+
+    if (isOpen && window.MathJax) {
+      MathJax.typesetPromise([dropdown]);
+    }
+  });
+}
+
+// ==========================================
 // 3. HTML TEMPLATE GENERATORS
 // ==========================================
 function createUpcomingHTML(lec, formattedDate) {
@@ -97,13 +123,20 @@ function createPastEntryHTML(entry) {
   const { lec, formattedDate } = entry;
 
   // 1. Bulletproof checks: Only true if the field exists, isn't empty spaces, and isn't "N/A"
-  const hasAbstract = lec.abstract && lec.abstract.trim() !== "" && lec.abstract.trim().toUpperCase() !== "N/A" && lec.abstract.trim() !== "#";
+  const hasAbstractText = lec.abstract_text && lec.abstract_text.trim() !== "";
+  const hasAbstractFile = lec.abstract && lec.abstract.trim() !== "" && lec.abstract.trim().toUpperCase() !== "N/A" && lec.abstract.trim() !== "#";
   const hasNotes = lec.notes && lec.notes.trim() !== "" && lec.notes.trim().toUpperCase() !== "N/A" && lec.notes.trim() !== "#";
   
   // 2. Clean up Speaker, Topic, Location so "N/A" doesn't show up as text/tags
   const showSpeaker = lec.speaker && lec.speaker.trim() !== "" && lec.speaker.trim().toUpperCase() !== "N/A";
   const showTopic = lec.topic && lec.topic.trim() !== "" && lec.topic.trim().toUpperCase() !== "N/A";
   const showLocation = lec.location && lec.location.trim() !== "" && lec.location.trim().toUpperCase() !== "N/A";
+
+  // Prefer the inline text dropdown; fall back to a plain PDF link when
+  // an entry has a file but no abstract_text populated yet.
+  const abstractLinkHTML = hasAbstractText
+    ? `<button class="abstract-toggle" type="button" aria-expanded="false">Abstract <span class="abstract-arrow">▾</span></button>`
+    : (hasAbstractFile ? `<a href="${lec.abstract}" target="_blank" rel="noopener noreferrer">Abstract</a>` : '');
 
   return `
     <div class="seminar-entry">
@@ -116,9 +149,15 @@ function createPastEntryHTML(entry) {
         ${showLocation ? `<p class="location-line">${lec.location}</p>` : ""}
         
         <div class="links">
-          ${hasAbstract ? `<a href="${lec.abstract}" target="_blank" rel="noopener noreferrer">Abstract</a>` : ''}
-          ${hasNotes    ? `<a href="${lec.notes}"    target="_blank" rel="noopener noreferrer">Notes</a>`    : ''}
+          ${abstractLinkHTML}
+          ${hasNotes ? `<a href="${lec.notes}" target="_blank" rel="noopener noreferrer">Notes</a>` : ''}
         </div>
+
+        ${hasAbstractText ? `
+          <div class="abstract-dropdown">
+            <p class="abstract-dropdown-text">${lec.abstract_text}</p>
+          </div>
+        ` : ''}
       </div>
     </div>
   `;
@@ -513,6 +552,7 @@ function initDynamicYears() {
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initDynamicYears();
+  initAbstractToggles();
   loadIntro();
   loadSeminarData();
 });
