@@ -425,6 +425,61 @@ section h2 {
   border-bottom-color: var(--accent);
 }
 
+.abstract-toggle {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid transparent;
+}
+
+.abstract-toggle:hover {
+  border-bottom-color: var(--accent);
+}
+
+.abstract-arrow {
+  display: inline-block;
+  font-size: 9px;
+  line-height: 1;
+  color: currentColor; /* stays the same color as "Abstract" */
+  transition: transform 0.2s ease;
+}
+
+.abstract-toggle.open .abstract-arrow {
+  transform: rotate(180deg);
+}
+
+.abstract-dropdown {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  background: #ffffff;
+  border: 1px solid var(--rule);
+  transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.35s ease;
+}
+
+.abstract-dropdown.open {
+  max-height: 1200px;
+  opacity: 1;
+  margin-top: 0.85rem;
+}
+
+.abstract-dropdown-text {
+  padding: 1rem 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--ink);
+  white-space: pre-line;
+}
+
 /* ── Show More Button ── */
 .show-more-btn {
   display: block;
