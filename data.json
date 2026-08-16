@@ -137,6 +137,14 @@
       "abstract_text": "This talk will provide an accessible introduction to entanglement-breaking maps, beginning with positive and completely positive maps between matrix algebras. We will explain their basic properties, examples, and significance in quantum information theory. The only prerequisite is basic matrix algebra.",
       "image": "images/neha.jpg",
       "notes": ""
+    },
+    {
+      "date": "2026-08-20",
+      "title": "Mathematics in the Age of AI",
+      "speaker": "Terence Tao (YouTube Streaming)",
+      "topic": "Artificial Intelligence",
+      "abstract_text": "This ICM 2026 public lecture by Terence Tao explores the evolving relationship between mathematics and artificial intelligence, and discusses how AI is influencing mathematical research and the way mathematics may be approached in the future.",
+      "notes": ""
     }
   ]
 }
