@@ -108,7 +108,7 @@ function createUpcomingHTML(lec, formattedDate) {
       <p class="tag">Next · ${formattedDate}</p>
       <h3>${lec.title || ""}</h3>
       <p class="speaker">Presented by ${lec.speaker || ""}</p>
-      <p class="date-line">${formattedDate} · 12:00 PM · ${lec.location && lec.location.trim() !== "" ? lec.location : "Hall B108"}</p>
+      <p class="date-line">${formattedDate} · 12:30 PM · ${lec.location && lec.location.trim() !== "" ? lec.location : "Hall B113"}</p>
       ${lec.abstract_text ? `
         <div class="abstract-box">
           <h4>Abstract</h4>
