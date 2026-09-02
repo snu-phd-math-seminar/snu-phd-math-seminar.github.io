@@ -145,6 +145,14 @@
       "topic": "Artificial Intelligence",
       "abstract_text": "This ICM 2026 public lecture by Terence Tao explores the evolving relationship between mathematics and artificial intelligence, and discusses how AI is influencing mathematical research and the way mathematics may be approached in the future.",
       "notes": ""
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Remembering James Munkres",
+      "speaker": "Deva Iyer",
+      "topic": "Geometry",
+      "abstract_text": "Beyond his famous textbooks, Munkres was a key pioneer in differential topology during the 1960s. His groundbreaking work on the smoothability of triangulated manifolds and obstruction theory helped bridge the gap between algebraic structures and smooth geometry, laying vital groundwork for modern geometric topology. James Munkres died peacefully on July 30, 2026. His famous book on topology received an Indian edition by Phi publishers, and we have all grown up reading his book. In this session, we gather to read parts of his book, discuss some point set topology, and honor his legacy",
+      "notes": ""
     }
   ]
 }
