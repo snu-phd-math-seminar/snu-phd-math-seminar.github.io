@@ -159,7 +159,7 @@
       "title": "Burnside's Normal \\(p-\\)Complement Theorem",
       "speaker": "Ayush Bohra",
       "topic": "Algebra",
-      "abstract_text": "Let \\(G\\) be a finite group and let \\(P\\) be a Sylow \\(p-\\)subgroup. Under what conditions does there exist a normal subgroup N such that \\(G = PN?\\)? A theorem of William Burnside states that if \\(P\\) is contained in the center of its normalizer, then such an \\(N\\) exists. We say that \\(N\\) is a normal \\(p-\\)complement of \\(P\\) in \\(G\\). We give a brief outline of the proof, without going too much into technical details. After which, we show various interesting consequences of this theorem relating to the existence of \\(p-\\)complements, order of non-abelian simple groups, solvable groups, and groups which satisfy the converse of Lagrange's Theorem.",
+      "abstract_text": "Let \\(G\\) be a finite group and let \\(P\\) be a Sylow \\(p-\\)subgroup. Under what conditions does there exist a normal subgroup N such that \\(G = PN\\)? A theorem of William Burnside states that if \\(P\\) is contained in the center of its normalizer, then such an \\(N\\) exists. We say that \\(N\\) is a normal \\(p-\\)complement of \\(P\\) in \\(G\\). We give a brief outline of the proof, without going too much into technical details. After which, we show various interesting consequences of this theorem relating to the existence of \\(p-\\)complements, order of non-abelian simple groups, solvable groups, and groups which satisfy the converse of Lagrange's Theorem.",
       "notes": ""
     }
   ]
