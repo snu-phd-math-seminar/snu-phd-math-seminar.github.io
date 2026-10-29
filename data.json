@@ -168,6 +168,7 @@
       "speaker": "Siddharth Choudary Koduri",
       "topic": "Algebra",
       "abstract_text": "Let \\(C:y^2=x^3+ax+b\\) be a non-singular rational elliptic curve. Do there exist rational points on the curve? If there are, how can we find all rational points? One of the most remarkable properties of elliptic curves is that the set of rational points can be made into a group structure. We begin with an introduction to elliptic curves and how to construct the group structure on the rational points using simple geometry. Then we will look at points of finite order and discuss the Nagell-Lutz theorem, which imposes restrictions on such points. Finally, we'll give an outline of Mordell's theorem, which states that the set of rational points is finitely generated.",
+      "image": "images/siddhu.jpg",
       "notes": ""
     }
   ]
