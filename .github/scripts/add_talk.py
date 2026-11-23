@@ -10,13 +10,18 @@ Expected env vars:
 """
 import os
 import re
+import sys
 import json
 import unicodedata
 import urllib.request
-from datetime import date
+from datetime import date, datetime
 
 DATA_JSON = os.environ.get("DATA_JSON", "data.json")
 ISSUE_BODY = os.environ["ISSUE_BODY"]
+
+# Matches the URL in markdown links, <img src="...">, or bare links,
+# without swallowing a trailing quote, bracket or angle bracket.
+URL_RE = re.compile(r"https?://[^\s)\"'<>]+")
 
 # --- 1. Parse "### Label\n\nvalue" sections produced by issue forms ---
 sections = re.split(r"^### (.+)$", ISSUE_BODY, flags=re.MULTILINE)[1:]
@@ -55,17 +60,17 @@ def unique_path(folder, base, ext):
 def resolve_attachment(raw_text, folder, base, kind_ext_default):
     """
     raw_text may be:
-      - empty -> ("", None)
-      - a GitHub-uploaded attachment markdown/link -> download it
+      - empty -> ""
+      - a GitHub-uploaded attachment (markdown link or <img> tag) -> download it
       - a plain existing relative path the organizer typed -> use as-is
     Returns the path to store in data.json.
     """
     if not raw_text:
         return ""
 
-    url_match = re.search(r"(https?://\S+?)(?:\)|\s|$)", raw_text)
+    url_match = URL_RE.search(raw_text)
     if url_match:
-        url = url_match.group(1)
+        url = url_match.group(0)
         ext = os.path.splitext(url.split("?")[0])[1] or kind_ext_default
         os.makedirs(folder, exist_ok=True)
         dest = unique_path(folder, base, ext)
@@ -84,6 +89,13 @@ talk_date = raw_date if raw_date else date.today().isoformat()
 location = get("Location", "")
 topic = get("Topic", "")
 abstract_text = get("Abstract (plain text", "")
+
+try:
+    datetime.strptime(talk_date, "%Y-%m-%d")
+except ValueError:
+    print(f"ERROR: '{talk_date}' is not a valid date (expected YYYY-MM-DD).",
+          file=sys.stderr)
+    sys.exit(1)
 
 slug = slugify(speaker)
 
