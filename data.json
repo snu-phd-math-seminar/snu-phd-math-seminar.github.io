@@ -181,7 +181,7 @@
     },
     {
       "date": "2026-11-05",
-      "title": "",
+      "title": "Graded Rings in Commutative Algebra",
       "speaker": "Kalom Lego",
       "topic": "Algebra",
       "abstract_text": "This week, we shall have an introductory discussion on graded rings in commutative algebra. The topic is particularly useful in the study of polynomial rings and various algebraic constructions arising from them. A standard reference is *Introduction to Commutative Algebra* by Atiyah and Macdonald.",
@@ -201,6 +201,14 @@
       "speaker": "Shelly Verma",
       "topic": "Data Science",
       "abstract_text": "TBA",
+      "notes": ""
+    },
+    {
+      "date": "2026-12-10",
+      "title": "Magnetic Monopoles (Part 2)",
+      "speaker": "Suhas B. Mahesh",
+      "topic": "Mathematical Physics",
+      "abstract_text": "In this talk, we will define magnetic monopoles through the lens of the Anti-Self-Dual (ASD) equations on a Riemann surface, following the foundational work of Nigel Hitchin.",
       "notes": ""
     }
   ]
