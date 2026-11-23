@@ -8,9 +8,15 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: seminar-data-update
+  cancel-in-progress: false
+
 jobs:
   edit-talk:
-    if: contains(github.event.issue.labels.*.name, 'edit-talk')
+    if: >-
+      contains(github.event.issue.labels.*.name, 'edit-talk') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -33,7 +39,7 @@ jobs:
         run: |
           git config user.name "seminar-bot"
           git config user.email "actions@github.com"
-          git add data.json assets/abstracts assets/notes images
+          git add -A data.json assets images
           git commit -m "Edit talk from issue #${{ github.event.issue.number }}" || echo "Nothing to commit"
           git push
 
@@ -64,5 +70,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: "❌ Couldn't find a talk with that date. Please double-check the date matches exactly what's shown on the site (format YYYY-MM-DD), then close this issue and open a new \"Edit Talk\" issue with the correct date."
+              body: "❌ Couldn't apply the edit. Most likely the date doesn't match any talk exactly as shown on the site, or a new date isn't in YYYY-MM-DD format. Please close this issue and open a new \"Edit Talk\" issue (details are in the Actions tab logs)."
             });
