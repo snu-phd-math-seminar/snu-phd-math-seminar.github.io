@@ -4,12 +4,12 @@
 function getAcademicYearInfo(dateObj) {
   const month = dateObj.getMonth(); // 0 is Jan, 7 is Aug
   let startYear = dateObj.getFullYear();
-  
+
   // If month is before August, we are still in the previous academic year
-  if (month < 7) startYear -= 1; 
-  
+  if (month < 7) startYear -= 1;
+
   const nextYearShort = (startYear + 1).toString().slice(-2);
-  
+
   return {
     string: `${startYear}–${nextYearShort}`, // e.g., "2025–26"
     startYear: startYear                     // e.g., 2025
@@ -41,7 +41,7 @@ function initNavigation() {
   }
 
   window.addEventListener("scroll", updateActiveLink);
-  updateActiveLink(); 
+  updateActiveLink();
 }
 
 // ==========================================
@@ -74,7 +74,7 @@ function initLightbox() {
 }
 
 // ==========================================
-// 3b. ABSTRACT DROPDOWN TOGGLE (Past Lectures)
+// 3. ABSTRACT DROPDOWN TOGGLE (Past Lectures)
 // ==========================================
 function initAbstractToggles() {
   const pastContainer = document.getElementById("past-container");
@@ -100,7 +100,7 @@ function initAbstractToggles() {
 }
 
 // ==========================================
-// 3. HTML TEMPLATE GENERATORS
+// 4. HTML TEMPLATE GENERATORS
 // ==========================================
 function createUpcomingHTML(lec, formattedDate) {
   return `
@@ -122,11 +122,11 @@ function createUpcomingHTML(lec, formattedDate) {
 function createPastEntryHTML(entry) {
   const { lec, formattedDate } = entry;
 
-  // 1. Bulletproof checks: Only true if the field exists, isn't empty spaces, and isn't "N/A"
+  // 1. Only true if the field exists, isn't empty spaces, and isn't "N/A"
   const hasAbstractText = lec.abstract_text && lec.abstract_text.trim() !== "";
   const hasAbstractFile = lec.abstract && lec.abstract.trim() !== "" && lec.abstract.trim().toUpperCase() !== "N/A" && lec.abstract.trim() !== "#";
   const hasNotes = lec.notes && lec.notes.trim() !== "" && lec.notes.trim().toUpperCase() !== "N/A" && lec.notes.trim() !== "#";
-  
+
   // 2. Clean up Speaker, Topic, Location so "N/A" doesn't show up as text/tags
   const showSpeaker = lec.speaker && lec.speaker.trim() !== "" && lec.speaker.trim().toUpperCase() !== "N/A";
   const showTopic = lec.topic && lec.topic.trim() !== "" && lec.topic.trim().toUpperCase() !== "N/A";
@@ -143,11 +143,11 @@ function createPastEntryHTML(entry) {
       <div class="seminar-date">${formattedDate}</div>
       <div class="seminar-info">
         <h3>${lec.title || ""}</h3>
-        
+
         ${showSpeaker ? `<p class="speaker">${lec.speaker}</p>` : ""}
         ${showTopic ? `<span class="topic-tag">${lec.topic}</span>` : ""}
         ${showLocation ? `<p class="location-line">${lec.location}</p>` : ""}
-        
+
         <div class="links">
           ${abstractLinkHTML}
           ${hasNotes ? `<a href="${lec.notes}" target="_blank" rel="noopener noreferrer">Notes</a>` : ''}
@@ -177,6 +177,7 @@ function createScheduleRowHTML(lec, formattedDate, isPast) {
     </tr>
   `;
 }
+
 function createGalleryHTML(lec) {
   return `
     <div class="gallery-item">
@@ -184,120 +185,114 @@ function createGalleryHTML(lec) {
     </div>
   `;
 }
+
+// ==========================================
+// 5. GALLERY CAROUSEL
+// ==========================================
 let galleryTimer = null;
 
 function initGalleryCarousel() {
 
-    const viewport = document.getElementById("gallery-grid");
-    const track = viewport ? viewport.querySelector(".gallery-track-inner") : null;
-    const prev = document.getElementById("gallery-prev");
-    const next = document.getElementById("gallery-next");
+  const viewport = document.getElementById("gallery-grid");
+  const track = viewport ? viewport.querySelector(".gallery-track-inner") : null;
+  const prev = document.getElementById("gallery-prev");
+  const next = document.getElementById("gallery-next");
 
-    if (!viewport || !track || !prev || !next) return;
+  if (!viewport || !track || !prev || !next) return;
 
-    if (galleryTimer) clearInterval(galleryTimer);
+  if (galleryTimer) clearInterval(galleryTimer);
 
-    // setCount = how many UNIQUE photos there are (track holds 3 copies
-    // back-to-back, see loadSeminarData). itemStep = px width of one
-    // item including its gap, measured from the actual rendered layout.
-    const setCount = parseInt(track.dataset.setCount, 10);
-    const totalItems = track.children.length;
-    if (!setCount || !totalItems) return;
+  // setCount = how many UNIQUE photos there are (track holds 3 copies
+  // back-to-back, see loadSeminarData). itemStep = px width of one
+  // item including its gap, measured from the actual rendered layout.
+  const setCount = parseInt(track.dataset.setCount, 10);
+  const totalItems = track.children.length;
+  if (!setCount || !totalItems) return;
 
-    const itemStep = track.scrollWidth / totalItems;
+  const itemStep = track.scrollWidth / totalItems;
 
-    const wrapperEl = viewport.closest(".gallery-wrapper") || viewport;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const wrapperEl = viewport.closest(".gallery-wrapper") || viewport;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const STEP_INTERVAL = 3000;  // ms between automatic steps
-    const TRANSITION_MS = 600;
+  const STEP_INTERVAL = 3000;  // ms between automatic steps
+  const TRANSITION_MS = 600;
 
-    // Start in the middle copy: gives room to step forward or backward
-    // before ever needing to wrap.
-    let stepIndex = setCount;
-    let resumeTimer = null;
-    const pauseReasons = new Set();
+  // Start in the middle copy: gives room to step forward or backward
+  // before ever needing to wrap.
+  let stepIndex = setCount;
+  let resumeTimer = null;
+  const pauseReasons = new Set();
 
-    function setPaused(reason, isPaused) {
-        if (isPaused) pauseReasons.add(reason);
-        else pauseReasons.delete(reason);
+  function setPaused(reason, isPaused) {
+    if (isPaused) pauseReasons.add(reason);
+    else pauseReasons.delete(reason);
+  }
+
+  function applyTransform(withTransition) {
+    track.style.transition = (withTransition && !reduceMotion)
+      ? `transform ${TRANSITION_MS}ms ease`
+      : "none";
+    track.style.transform = `translateX(${-stepIndex * itemStep}px)`;
+  }
+
+  // After reaching either edge of the 3-copy buffer, jump back by one
+  // full set (instant, no transition) to an identical-looking position
+  // — invisible to the viewer, since the copies are identical content.
+  function recenterIfNeeded() {
+    if (stepIndex <= 0) {
+      stepIndex += setCount;
+      applyTransform(false);
+      void track.offsetWidth; // force reflow before re-enabling transitions
+    } else if (stepIndex >= setCount * 2) {
+      stepIndex -= setCount;
+      applyTransform(false);
+      void track.offsetWidth;
     }
+  }
 
-    function applyTransform(withTransition) {
-        track.style.transition = (withTransition && !reduceMotion)
-            ? `transform ${TRANSITION_MS}ms ease`
-            : "none";
-        track.style.transform = `translateX(${-stepIndex * itemStep}px)`;
-    }
+  function step(direction) {
+    stepIndex += direction;
+    applyTransform(true);
+    if (reduceMotion) recenterIfNeeded(); // no transitionend fires when motion is off
+  }
 
-    // After reaching either edge of the 3-copy buffer, jump back by one
-    // full set (instant, no transition) to an identical-looking position
-    // — invisible to the viewer, since the copies are identical content.
-    function recenterIfNeeded() {
-        if (stepIndex <= 0) {
-            stepIndex += setCount;
-            applyTransform(false);
-            void track.offsetWidth; // force reflow before re-enabling transitions
-        } else if (stepIndex >= setCount * 2) {
-            stepIndex -= setCount;
-            applyTransform(false);
-            void track.offsetWidth;
-        }
-    }
+  track.addEventListener("transitionend", recenterIfNeeded);
 
-    function step(direction) {
-        stepIndex += direction;
-        applyTransform(true);
-        if (reduceMotion) recenterIfNeeded(); // no transitionend fires when motion is off
-    }
+  function tick() {
+    if (pauseReasons.size === 0) step(1);
+  }
 
-    track.addEventListener("transitionend", recenterIfNeeded);
+  function nudge(direction) {
+    step(direction);
+    setPaused("manual", true);
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => setPaused("manual", false), STEP_INTERVAL * 2);
+  }
 
-    function tick() {
-        if (pauseReasons.size === 0) step(1);
-    }
+  prev.onclick = () => nudge(-1);
+  next.onclick = () => nudge(1);
 
-    function nudge(direction) {
-        step(direction);
-        setPaused("manual", true);
-        clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(() => setPaused("manual", false), STEP_INTERVAL * 2);
-    }
+  wrapperEl.addEventListener("mouseenter", () => setPaused("hover", true));
+  wrapperEl.addEventListener("mouseleave", () => setPaused("hover", false));
+  wrapperEl.addEventListener("focusin", () => setPaused("focus", true));
+  wrapperEl.addEventListener("focusout", () => setPaused("focus", false));
 
-    prev.onclick = () => nudge(-1);
-    next.onclick = () => nudge(1);
-
-    wrapperEl.addEventListener("mouseenter", () => setPaused("hover", true));
-    wrapperEl.addEventListener("mouseleave", () => setPaused("hover", false));
-    wrapperEl.addEventListener("focusin", () => setPaused("focus", true));
-    wrapperEl.addEventListener("focusout", () => setPaused("focus", false));
-
-    document.addEventListener("visibilitychange", () => {
-        setPaused("hidden", document.hidden);
-    });
-
-    if ("IntersectionObserver" in window) {
-        new IntersectionObserver(entries => {
-            setPaused("offscreen", !entries[0].isIntersecting);
-        }).observe(wrapperEl);
-    }
-
-    applyTransform(false);
-    galleryTimer = setInterval(tick, STEP_INTERVAL);
-}
-// in initDynamicYears() or DOMContentLoaded
-const announcementDate = document.getElementById("announcement-date");
-
-if (announcementDate) {
-  announcementDate.textContent = new Date().toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
+  document.addEventListener("visibilitychange", () => {
+    setPaused("hidden", document.hidden);
   });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => {
+      setPaused("offscreen", !entries[0].isIntersecting);
+    }).observe(wrapperEl);
+  }
+
+  applyTransform(false);
+  galleryTimer = setInterval(tick, STEP_INTERVAL);
 }
 
 // ==========================================
-// 4. SCHEDULE FILTERING
+// 6. SCHEDULE FILTERING
 // ==========================================
 function initFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -311,13 +306,13 @@ function initFilters() {
 
       const filterString = btn.dataset.filter;
       // Split comma-separated keywords into an array
-      const filterTerms = filterString.split(','); 
-      
+      const filterTerms = filterString.split(',');
+
       scheduleRows.forEach(row => {
         const rowTopic = row.dataset.topic;
         // Check if AT LEAST ONE of the filter terms matches the row's topic
         const topicMatch = filterTerms.some(term => rowTopic.includes(term.trim()));
-        
+
         row.style.display = (filterString === 'all' || topicMatch) ? '' : 'none';
       });
     });
@@ -325,24 +320,7 @@ function initFilters() {
 }
 
 // ==========================================
-// 4b. INTRODUCTION TEXT
-// ==========================================
-async function loadIntro() {
-  const introEl = document.getElementById("intro");
-  if (!introEl) return;
-
-  try {
-    const res = await fetch('intro.json');
-    const data = await res.json();
-    introEl.innerHTML = data.introduction || "";
-    if (window.MathJax) MathJax.typesetPromise([introEl]);
-  } catch (err) {
-    console.error("Failed to load introduction:", err);
-  }
-}
-
-// ==========================================
-// 5. DATA FETCHING & RENDERING ENGINE
+// 7. DATA FETCHING & RENDERING ENGINE
 // ==========================================
 async function loadSeminarData() {
   try {
@@ -359,7 +337,7 @@ async function loadSeminarData() {
     const scheduleBody = document.getElementById("schedule-body");
     const archiveContainer = document.getElementById("archive-container");
     const galleryGrid = document.getElementById("gallery-grid");
-    
+
     const INITIAL_SHOW = 3;
 
     // Sort ascending
@@ -374,9 +352,9 @@ async function loadSeminarData() {
       const formattedDate = lecDate.toLocaleDateString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric'
       });
-      
+
       const isPast = lecDate < today;
-      
+
       // Determine bucket for this lecture
       const lecAcademicYear = getAcademicYearInfo(lecDate).string;
       if (!scheduleBuckets[lecAcademicYear]) {
@@ -400,6 +378,7 @@ async function loadSeminarData() {
         createScheduleRowHTML(lec, formattedDate, isPast)
       );
     });
+
     // ── GALLERY ──
     if (galleryGrid) {
       const galleryLectures = [...sorted]
@@ -427,7 +406,7 @@ async function loadSeminarData() {
 
       initLightbox();
       initGalleryCarousel();
-    };
+    }
 
     // ── RENDER MAIN SCHEDULE (Current Year Only) ──
     if (scheduleBuckets[currentAcademicYear]) {
@@ -475,13 +454,12 @@ async function loadSeminarData() {
         <div class="upcoming-card">
           <p class="tag">On Break</p>
           <h3>No upcoming seminar scheduled</h3>
-          </p>
         </div>
       `;
     }
 
     // ── RENDER PAST LECTURES (Descending with Show More) ──
-    pastLectures.reverse(); 
+    pastLectures.reverse();
 
     if (pastLectures.length === 0) {
       pastContainer.innerHTML = `<p class="empty-note">No past lectures yet. Check back after the first seminar.</p>`;
@@ -492,7 +470,7 @@ async function loadSeminarData() {
       });
       pastContainer.innerHTML = pastHTML;
       if (window.MathJax) {
-          MathJax.typesetPromise([pastContainer]);
+        MathJax.typesetPromise([pastContainer]);
       }
 
       if (pastLectures.length > INITIAL_SHOW) {
@@ -522,12 +500,12 @@ async function loadSeminarData() {
 }
 
 // ==========================================
-// 6. DYNAMIC TIME & COHORT TRACKING
+// 8. DYNAMIC TIME & COHORT TRACKING
 // ==========================================
 function initDynamicYears() {
   const today = new Date();
   const currentYearInfo = getAcademicYearInfo(today);
-  
+
   document.querySelectorAll('.dynamic-academic-year').forEach(el => {
     el.textContent = currentYearInfo.string;
   });
@@ -536,23 +514,22 @@ function initDynamicYears() {
 
   document.querySelectorAll('.dynamic-org-year').forEach(el => {
     const startYear = parseInt(el.dataset.startYear || "2025", 10);
-  
+
     let yearInProgram = (currentYearInfo.startYear - startYear) + 1;
-  
+
     if (yearInProgram > 5) yearInProgram = 5;
     if (yearInProgram < 1) yearInProgram = 1;
-  
+
     el.textContent = `${yearInProgram}${ordinals[yearInProgram]} Year PhD`;
   });
 }
 
 // ==========================================
-// 7. INITIALIZE APPLICATION
+// 9. INITIALIZE APPLICATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initDynamicYears();
   initAbstractToggles();
-  loadIntro();
   loadSeminarData();
 });
