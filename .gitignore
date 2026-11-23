@@ -1,0 +1,20 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jekyll build output / caches (if you ever run it locally)
+_site/
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Python (helper scripts)
+__pycache__/
+*.pyc
