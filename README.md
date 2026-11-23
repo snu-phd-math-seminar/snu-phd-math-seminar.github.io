@@ -12,7 +12,7 @@ A static site served by GitHub Pages. There is no build step.
 |---|---|
 | `index.html` | Page structure, announcements, organizers, advisor |
 | `data.json` | All talks (the schedule, past lectures, gallery and upcoming card are generated from it) |
-| `scripts/main.js` | Loads `data.json` and renders the page |
+| `scripts/main.js` | Loads `data.json` and renders the page; holds `SEMINAR_CONFIG` (day, time, default hall) |
 | `styles/main.css` | Styling |
 | `assets/notes/`, `assets/abstracts/` | Talk notes and abstract PDFs |
 | `images/` | Speaker photos used in the gallery |
