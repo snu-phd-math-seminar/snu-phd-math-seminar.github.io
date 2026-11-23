@@ -22,8 +22,9 @@ A static site served by GitHub Pages. There is no build step.
 Organizers add and edit talks through GitHub Issue Forms (no code or JSON
 editing needed). See [SETUP.md](SETUP.md) for the one-time setup and usage.
 
-Announcements, the organizer list and header details (time, hall) are plain HTML
-in `index.html`.
+Announcements and the organizer list are plain HTML in `index.html`. The weekly
+day, time and default hall are set once in the `SEMINAR_CONFIG` block at the top
+of `scripts/main.js`.
 
 ## Previewing locally
 The page loads `data.json` with `fetch`, so it must be served over HTTP
