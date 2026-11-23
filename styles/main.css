@@ -174,13 +174,6 @@ section h2 {
   margin-bottom: 0.25rem;
 }
 
-.announcement-speaker {
-  font-style: italic;
-  color: var(--ink-muted);
-  font-size: 0.95rem;
-  margin-bottom: 0.9rem;
-}
-
 .announcement-body {
   font-size: 0.97rem;
   color: var(--ink);
@@ -191,14 +184,6 @@ section h2 {
 .announcement-body a {
   color: var(--accent);
   text-decoration: underline;
-}
-
-.announcement-meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-faint);
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--rule);
 }
 
 /* ── Upcoming ── */
@@ -259,6 +244,7 @@ section h2 {
   color: var(--ink-faint);
   margin-bottom: 0.75rem;
 }
+
 .abstract-text {
   white-space: pre-line;
 }
@@ -523,6 +509,33 @@ section h2 {
   border-bottom: 1px solid var(--rule);
 }
 
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.filter-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink-muted);
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
 /* ── Status Badges ── */
 .status-badge {
   font-family: var(--mono);
@@ -542,6 +555,41 @@ section h2 {
   color: #2d5a27;
   border-color: #a8c8a0;
   background: #f0f7ee;
+}
+
+/* ── Archive Dropdowns ── */
+.archive-schedule {
+  margin-top: 2rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.archive-schedule summary {
+  padding: 1rem;
+  background-color: #fafafa;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none; /* Hides default arrow in some browsers */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Custom arrow for the dropdown */
+.archive-schedule summary::after {
+  content: "▼";
+  font-size: 0.8rem;
+  color: #666;
+  transition: transform 0.2s ease;
+}
+
+.archive-schedule[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.archive-schedule[open] summary {
+  border-bottom: 1px solid #e0e0e0;
 }
 
 /* ── Organizers ── */
@@ -610,20 +658,6 @@ section h2 {
   max-width: 400px;
 }
 
-.advisor-card .initials {
-  width: 42px;
-  height: 42px;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--accent);
-  margin-bottom: 0.9rem;
-}
-
 .advisor-card h3 {
   font-size: 1rem;
   font-weight: 500;
@@ -652,72 +686,6 @@ section h2 {
   font-style: normal;
 }
 
-/* ── Subscribe Section ── */
-.subscribe-section {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--rule);
-}
-
-.subscribe-text {
-  font-size: 0.95rem;
-  color: var(--ink-muted);
-  margin-bottom: 0.6rem;
-}
-
-.subscribe-btn {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  text-decoration: none;
-  border: 1px solid var(--accent);
-  padding: 6px 12px;
-  transition: all 0.2s ease;
-}
-
-.subscribe-btn:hover {
-  background: var(--accent);
-  color: #fff;
-}
-.subscribe-row {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-.subscribe-row .subscribe-section {
-  flex: 1;
-  margin-top: 0;
-}
-.filter-bar {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-}
-
-.filter-btn {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: none;
-  border: 1px solid var(--rule);
-  color: var(--ink-muted);
-  padding: 4px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accent-light);
-}
 /* ── Footer ── */
 footer {
   border-top: 1px solid var(--rule);
@@ -726,40 +694,6 @@ footer {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-faint);
-}
-/* --- Archive Dropdowns --- */
-.archive-schedule {
-  margin-top: 2rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.archive-schedule summary {
-  padding: 1rem;
-  background-color: #fafafa;
-  font-weight: 500;
-  cursor: pointer;
-  list-style: none; /* Hides default arrow in some browsers */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* Custom arrow for the dropdown */
-.archive-schedule summary::after {
-  content: "▼";
-  font-size: 0.8rem;
-  color: #666;
-  transition: transform 0.2s ease;
-}
-
-.archive-schedule[open] summary::after {
-  transform: rotate(180deg);
-}
-
-.archive-schedule[open] summary {
-  border-bottom: 1px solid #e0e0e0;
 }
 
 /* ── Responsive ── */
