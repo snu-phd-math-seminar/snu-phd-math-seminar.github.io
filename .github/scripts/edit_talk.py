@@ -8,8 +8,9 @@ Expected env vars:
   ISSUE_BODY   - the raw issue body (GitHub issue-form markdown)
   DATA_JSON    - path to data.json (default: data.json)
 
-Exits with code 1 (and prints an error) if no talk matches target_date,
-so the workflow can comment back without closing the issue.
+Exits with code 1 (and prints an error) if no talk matches target_date
+or a date is malformed, so the workflow can comment back without closing
+the issue.
 """
 import os
 import re
@@ -17,9 +18,14 @@ import sys
 import json
 import unicodedata
 import urllib.request
+from datetime import datetime
 
 DATA_JSON = os.environ.get("DATA_JSON", "data.json")
 ISSUE_BODY = os.environ["ISSUE_BODY"]
+
+# Matches the URL in markdown links, <img src="...">, or bare links,
+# without swallowing a trailing quote, bracket or angle bracket.
+URL_RE = re.compile(r"https?://[^\s)\"'<>]+")
 
 sections = re.split(r"^### (.+)$", ISSUE_BODY, flags=re.MULTILINE)[1:]
 fields = {}
@@ -58,9 +64,9 @@ def resolve_attachment(raw_text, folder, base, kind_ext_default):
     if not raw_text:
         return None  # None = "not provided", distinct from "" = "clear it"
 
-    url_match = re.search(r"(https?://\S+?)(?:\)|\s|$)", raw_text)
+    url_match = URL_RE.search(raw_text)
     if url_match:
-        url = url_match.group(1)
+        url = url_match.group(0)
         ext = os.path.splitext(url.split("?")[0])[1] or kind_ext_default
         os.makedirs(folder, exist_ok=True)
         dest = unique_path(folder, base, ext)
@@ -84,6 +90,15 @@ if match is None:
           file=sys.stderr)
     sys.exit(1)
 
+new_date = get("New Date").strip()
+if new_date:
+    try:
+        datetime.strptime(new_date, "%Y-%m-%d")
+    except ValueError:
+        print(f"ERROR: new date '{new_date}' is not valid (expected YYYY-MM-DD).",
+              file=sys.stderr)
+        sys.exit(1)
+
 slug = slugify(get("New Speaker") or match.get("speaker", ""))
 
 simple_field_map = {
@@ -98,7 +113,6 @@ for label, key in simple_field_map.items():
     if value:
         match[key] = value
 
-new_date = get("New Date").strip()
 if new_date:
     match["date"] = new_date
 
