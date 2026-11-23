@@ -1,4 +1,16 @@
 // ==========================================
+// SEMINAR CONFIG — edit ONLY here
+// Changes the header, the "Upcoming" card and the default location.
+// A talk's own "location" in data.json still overrides the hall.
+// ==========================================
+const SEMINAR_CONFIG = {
+  day: "Thursday",
+  startTime: "12:30 PM",
+  endTime: "01:30 PM",
+  hall: "B108"
+};
+
+// ==========================================
 // 0. UTILITY FUNCTIONS
 // ==========================================
 function getAcademicYearInfo(dateObj) {
@@ -14,6 +26,20 @@ function getAcademicYearInfo(dateObj) {
     string: `${startYear}–${nextYearShort}`, // e.g., "2025–26"
     startYear: startYear                     // e.g., 2025
   };
+}
+
+// Fills every [data-seminar="..."] element in index.html from SEMINAR_CONFIG
+function applySeminarConfig() {
+  const { day, startTime, endTime, hall } = SEMINAR_CONFIG;
+  const values = {
+    schedule: `Every ${day}, ${startTime} – ${endTime}`,
+    hall: hall
+  };
+
+  document.querySelectorAll("[data-seminar]").forEach(el => {
+    const value = values[el.dataset.seminar];
+    if (value !== undefined) el.textContent = value;
+  });
 }
 
 // ==========================================
@@ -103,12 +129,16 @@ function initAbstractToggles() {
 // 4. HTML TEMPLATE GENERATORS
 // ==========================================
 function createUpcomingHTML(lec, formattedDate) {
+  const location = lec.location && lec.location.trim() !== ""
+    ? lec.location
+    : `Hall ${SEMINAR_CONFIG.hall}`;
+
   return `
     <div class="upcoming-card">
       <p class="tag">Next · ${formattedDate}</p>
       <h3>${lec.title || ""}</h3>
       <p class="speaker">Presented by ${lec.speaker || ""}</p>
-      <p class="date-line">${formattedDate} · 12:30 PM · ${lec.location && lec.location.trim() !== "" ? lec.location : "Hall B113"}</p>
+      <p class="date-line">${formattedDate} · ${SEMINAR_CONFIG.startTime} · ${location}</p>
       ${lec.abstract_text ? `
         <div class="abstract-box">
           <h4>Abstract</h4>
@@ -528,6 +558,7 @@ function initDynamicYears() {
 // 9. INITIALIZE APPLICATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+  applySeminarConfig();
   initNavigation();
   initDynamicYears();
   initAbstractToggles();
