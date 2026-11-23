@@ -1,60 +1,65 @@
-# Organizer-friendly editing — setup
+# Organizer guide: editing the seminar site
 
-## What this gives you
-Any of the 5 organizers can now:
-- Click "New issue" → "🎤 New Talk" → fill a form → talk is auto-added to `data.json` and the site updates.
-- Click "New issue" → "✏️ Edit Introduction" → paste new text → `intro.json` is updated and the site updates.
+The site is driven by `data.json`. Organizers never need to edit it by hand:
+two GitHub Issue Forms do it for them, and a GitHub Action commits the change.
 
-No one needs to touch JSON, git, or code directly.
+## Who can use it
+Only the repo owner, org members, and **collaborators** can trigger the forms
+(the workflows ignore issues from anyone else). Collaborators with just "Read"
+access are enough, since they only need to open issues.
 
 ## One-time setup
+1. **Settings → Actions → General → Workflow permissions** → select
+   **Read and write permissions**.
+2. **Issues → Labels** → make sure these two labels exist (create them if not):
+   `new-talk` and `edit-talk`. The forms apply them automatically, and the
+   workflows trigger on them.
+3. Add every organizer as a collaborator on the repo.
 
-1. Copy these into your repo, preserving paths:
-   - `.github/ISSUE_TEMPLATE/new-talk.yml`
-   - `.github/ISSUE_TEMPLATE/edit-intro.yml`
-   - `.github/workflows/add-talk.yml`
-   - `.github/workflows/edit-intro.yml`
-   - `.github/scripts/add_talk.py`
-   - `.github/scripts/update_intro.py`
-   - `intro.json` (only if you don't already have an intro file — see step 3)
+## Day-to-day use
 
-2. In your repo's **Settings → Actions → General → Workflow permissions**, make sure
-   "Read and write permissions" is selected (needed so the Action can push commits).
+### Add a talk
+Issues → New issue → **🎤 New Talk** → fill in the form → Submit.
+- **Date** blank = today's date. Otherwise use `YYYY-MM-DD`.
+- **Abstract PDF / Speaker Image / Notes PDF**: drag and drop the file into the
+  box (or leave blank). The bot downloads it into the repo.
+- Within about 30 seconds the bot comments, closes the issue, and the site
+  updates.
 
-3. Wire up the introduction text. Wherever `main.js` / `index.html` currently
-   renders the hardcoded intro text, replace it with something like:
+### Edit a talk
+Issues → New issue → **🛠️ Edit Talk** → enter the talk's **current date** as it
+appears on the site → fill in only the fields you want to change.
+- Blank fields are left untouched.
+- To reschedule, put the new date in **New Date**.
+- The form cannot erase a field. To clear something, edit `data.json` directly.
 
-   ```js
-   fetch('intro.json')
-     .then(res => res.json())
-     .then(data => {
-       document.getElementById('intro').innerHTML = data.introduction;
-     });
-   ```
+### If something fails
+The bot leaves the issue **open** and comments with the likely cause (usually a
+date that doesn't match, or isn't in `YYYY-MM-DD` format). Close that issue and
+open a fresh one. Details are in the repo's **Actions** tab.
 
-   (Adjust `'intro'` to whatever element id currently holds the intro text —
-   you'll need to find that one spot in `main.js`/`index.html` and swap it in.)
+## Where files go
+| Upload | Saved as |
+|---|---|
+| Abstract PDF | `assets/abstracts/<speakerfirstname>_abstract.pdf` |
+| Notes PDF | `assets/notes/<speakerfirstname>_notes.pdf` |
+| Speaker image | `images/<speakerfirstname>.jpg` |
 
-4. Make sure your organizers are collaborators on the GitHub repo (so they can
-   open issues) — they don't need write access, just enough to open an issue.
+If a speaker gives a second talk, the script appends `2`, `3`, … to the file
+name so earlier files are never overwritten. Talks are re-sorted by date after
+every change.
 
-## How organizers use it day to day
-- **New talk:** GitHub repo → Issues → New issue → "🎤 New Talk" → fill in
-  title, speaker, date (blank = today), location, topic, abstract (paste text,
-  or drag-and-drop a PDF right into the abstract box), speaker image, notes.
-  Submit → within ~30 seconds the bot comments "done" and closes the issue.
-- **Edit introduction:** Issues → New issue → "✏️ Edit Introduction" → paste
-  the full new text → submit.
+## Repo layout (the parts that matter)
+```
+.github/ISSUE_TEMPLATE/   new-talk.yml, edit-talk.yml   (the forms)
+.github/workflows/        add-talk.yml, edit-talk.yml    (the automation)
+.github/scripts/          add_talk.py, edit_talk.py      (the logic)
+data.json                 all talks
+index.html, scripts/, styles/   the site itself
+```
 
-## Notes / things to double check
-- New abstract/notes PDFs and images are saved as
-  `assets/abstracts/<speakerfirstname>_abstract.pdf`,
-  `assets/notes/<speakerfirstname>_notes.pdf`, `images/<speakerfirstname>.jpg`.
-  If a speaker gives a second talk, the script auto-appends `2`, `3`, etc. to
-  avoid overwriting the first file.
-- The "location" field is new — it wasn't in your existing `data.json` entries,
-  so it'll just show up empty (`""`) for past talks until you fill it in.
-- Talks are auto re-sorted by date after each addition.
-- The bot commits straight to your default branch. If you'd rather review
-  changes first, this can be changed to open a pull request instead — say
-  the word and I'll adjust it.
+## Notes
+- The bot commits straight to the default branch. If you'd rather review
+  changes first, the workflows can be changed to open a pull request instead.
+- Announcements, the organizer list, the header details (time, hall) and the
+  advisor card are plain HTML in `index.html` and are edited there.
