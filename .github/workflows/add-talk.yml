@@ -1,1 +1,76 @@
+name: Add Talk From Issue
 
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+# Serialize runs so two simultaneous issues can't clash while pushing
+concurrency:
+  group: seminar-data-update
+  cancel-in-progress: false
+
+jobs:
+  add-talk:
+    # Only run for the right label AND only for people with repo access
+    if: >-
+      contains(github.event.issue.labels.*.name, 'new-talk') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run add_talk.py
+        id: add_talk
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python .github/scripts/add_talk.py
+        continue-on-error: true
+
+      - name: Commit and push changes
+        if: steps.add_talk.outcome == 'success'
+        run: |
+          git config user.name "seminar-bot"
+          git config user.email "actions@github.com"
+          git add -A data.json assets images
+          git commit -m "Add talk from issue #${{ github.event.issue.number }}" || echo "Nothing to commit"
+          git push
+
+      - name: Comment success and close issue
+        if: steps.add_talk.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "✅ Talk added and the site has been refreshed."
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
+
+      - name: Comment failure, leave issue open
+        if: steps.add_talk.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: "❌ Couldn't add the talk. The most common cause is a date that isn't in YYYY-MM-DD format. Please close this issue and open a new \"New Talk\" issue (details are in the Actions tab logs)."
+            });
