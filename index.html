@@ -131,18 +131,21 @@
     <button class="filter-btn" data-filter="functional analysis, analysis, operator theory">Analysis</button>
     <button class="filter-btn" data-filter="space, mathematical physics, quantum information theory">Mathematical Physics</button>
   </div>
-  <table class="schedule-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Speaker</th>
-        <th>Topic</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="schedule-body"></tbody>
-  </table>
-  <div id="archive-container"></div>
+  <!-- Only this area scrolls (when expanded); the title and filters stay pinned -->
+  <div class="schedule-scroll">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Speaker</th>
+          <th>Topic</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="schedule-body"></tbody>
+    </table>
+    <div id="archive-container"></div>
+  </div>
 </section>
 
 </div>
@@ -184,4 +187,33 @@
     <div class="organizer-card">
       <div class="initials">DI</div>
       <h3>Deva Iyer</h3>
-      <p>Geometry · <span class="dynamic-org-year" data-start-year="2024">2nd Year
+      <p>Geometry · <span class="dynamic-org-year" data-start-year="2024">2nd Year PhD</span></p>
+      <a href="mailto:di843@snu.edu.in">di843@snu.edu.in</a>
+    </div>
+
+    <div class="advisor-card">
+      <p class="advisor-label">Faculty Advisor</p>
+      <h3>Prof. A. Satyanarayana Reddy</h3>
+      <p>Department of Mathematics</p>
+      <p>School of Natural Sciences</p>
+      <p class="advisor-sub">Shiv Nadar Institute of Eminence</p>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  Mathematics Seminar Series · Shiv Nadar Institute of Eminence · <span class="dynamic-academic-year">2025–26</span>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt=""/>
+</div>
+
+</body>
+</html>
