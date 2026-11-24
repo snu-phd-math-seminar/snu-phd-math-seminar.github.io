@@ -190,13 +190,36 @@ section {
     align-items: start;
   }
 
-  /* the schedule stays in view while the (longer) timeline scrolls */
+  /* The schedule column is pinned while the (longer) timeline scrolls.
+     Title and filters never move; if the table is expanded past the screen
+     height, only the rows area scrolls, under a pinned header row. */
   .split-lectures > #schedule {
     position: sticky;
     top: 5rem;
+    display: flex;
+    flex-direction: column;
     max-height: calc(100vh - 6.5rem);
+  }
+
+  .split-lectures > #schedule > h2,
+  .split-lectures > #schedule > .filter-bar {
+    flex: none;
+  }
+
+  .schedule-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
+    /* room for focus outlines, without shifting alignment */
+    margin: 0 -0.25rem;
     padding: 0.25rem;
+  }
+
+  .schedule-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--paper);
   }
 
   /* narrower column -> narrower date column on the timeline */
@@ -652,7 +675,8 @@ section h2 {
 /* ── Schedule ── */
 .schedule-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;   /* keeps cell borders when the header row is sticky */
+  border-spacing: 0;
   font-size: 0.92rem;
 }
 
@@ -679,6 +703,16 @@ section h2 {
 
 .schedule-table .date-cell {
   white-space: nowrap;
+}
+
+/* "Show N earlier" row at the top of the current-year table */
+.schedule-load-row td {
+  padding: 0.6rem 0;
+  white-space: normal;
+}
+
+.schedule-load-btn {
+  margin: 0;
 }
 
 .filter-bar {
