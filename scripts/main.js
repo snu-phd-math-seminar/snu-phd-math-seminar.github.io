@@ -46,7 +46,9 @@ function applySeminarConfig() {
 // 1. NAVIGATION SCROLL LOGIC
 // ==========================================
 function initNavigation() {
-  const sections = document.querySelectorAll("main section");
+  // The page is four rows: two of them hold two side-by-side sections, so
+  // the nav tracks the rows (.split wrappers) and the full-width sections.
+  const sections = document.querySelectorAll("main > section, main > .split");
   const navLinks = document.querySelectorAll("nav a");
 
   function updateActiveLink() {
