@@ -43,7 +43,7 @@
 <header>
   <div class="header-inner">
     <p class="series-label">Department of Mathematics · PhD Seminar Series</p>
-    <h1>Kernel $\rightarrow$ Cokernel Circle</h1>
+    <h1>Kernel <span class="title-arrow">→</span> Cokernel Circle</h1>
     <div class="header-meta">
       <span>Academic Year <span class="dynamic-academic-year">2025–26</span></span>
       <!-- Filled from SEMINAR_CONFIG in scripts/main.js -->
@@ -55,8 +55,8 @@
 
 <nav>
   <ul>
-    <li><a href="#announcements">Announcements</a></li>
     <li><a href="#upcoming">Upcoming</a></li>
+    <li><a href="#announcements">Announcements</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#past">Past Lectures</a></li>
     <li><a href="#schedule">Schedule</a></li>
@@ -65,6 +65,12 @@
 </nav>
 
 <main>
+
+<!-- UPCOMING -->
+<section id="upcoming">
+  <h2>Upcoming seminar</h2>
+  <div id="upcoming-container"></div>
+</section>
 
 <!-- ANNOUNCEMENTS -->
 <section id="announcements">
@@ -83,12 +89,6 @@
       <a href="https://may12.womeninmaths.org/2026-list?field_address_country_code=IN&field_type_event_target_id=All" target="_blank" rel="noopener noreferrer">may12.womeninmaths.org</a>
     </p>
   </div>
-</section>
-
-<!-- UPCOMING -->
-<section id="upcoming">
-  <h2>Upcoming Seminar</h2>
-  <div id="upcoming-container"></div>
 </section>
 
 <!-- GALLERY -->
@@ -110,13 +110,13 @@
 
 <!-- PAST -->
 <section id="past">
-  <h2>Past Lectures</h2>
-  <div id="past-container"></div>
+  <h2>Past lectures</h2>
+  <div id="past-container" class="timeline"></div>
 </section>
 
 <!-- SCHEDULE -->
 <section id="schedule">
-  <h2>Full Schedule <span class="dynamic-academic-year">2025–26</span></h2>
+  <h2>Full schedule <span class="dynamic-academic-year">2025–26</span></h2>
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
     <button class="filter-btn" data-filter="geometry">Geometry</button>
