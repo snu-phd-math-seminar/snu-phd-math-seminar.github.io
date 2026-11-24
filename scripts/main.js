@@ -411,7 +411,7 @@ async function loadSeminarData() {
     const galleryGrid = document.getElementById("gallery-grid");
 
     const INITIAL_SHOW = 3;                // past lectures shown before "Show more"
-    const SCHEDULE_PAST_CONTEXT = 3;       // completed talks kept visible in the schedule
+    const SCHEDULE_PAST_CONTEXT = 6;       // completed talks kept visible in the schedule
 
     // Sort ascending
     const sorted = data.lectures.sort((a, b) => new Date(a.date) - new Date(b.date));
