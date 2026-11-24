@@ -149,6 +149,16 @@ function createUpcomingHTML(lec, formattedDate) {
   `;
 }
 
+// Academic-year marker on the timeline (shown before the first talk of each year)
+function createTimelineYearHTML(label) {
+  return `
+    <div class="timeline-year">
+      <div class="timeline-rail" aria-hidden="true"><span class="timeline-node"></span></div>
+      <p class="timeline-year-label">${label}</p>
+    </div>
+  `;
+}
+
 function createPastEntryHTML(entry) {
   const { lec, formattedDate } = entry;
 
@@ -169,8 +179,10 @@ function createPastEntryHTML(entry) {
     : (hasAbstractFile ? `<a href="${lec.abstract}" target="_blank" rel="noopener noreferrer">Abstract</a>` : '');
 
   return `
-    <div class="seminar-entry">
+    ${entry.yearLabel ? createTimelineYearHTML(entry.yearLabel) : ""}
+    <div class="seminar-entry${entry.isLatest ? " is-latest" : ""}">
       <div class="seminar-date">${formattedDate}</div>
+      <div class="timeline-rail" aria-hidden="true"><span class="timeline-node"></span></div>
       <div class="seminar-info">
         <h3>${lec.title || ""}</h3>
 
@@ -491,6 +503,18 @@ async function loadSeminarData() {
     // ── RENDER PAST LECTURES (Descending with Show More) ──
     pastLectures.reverse();
 
+    // Timeline metadata: newest talk is highlighted, and the first talk of
+    // each academic year gets a year marker. Done once, before any slicing,
+    // so "Show more" can't split or repeat a marker.
+    pastLectures.forEach((entry, i) => {
+      const year = getAcademicYearInfo(new Date(entry.lec.date)).string;
+      const prevYear = i > 0
+        ? getAcademicYearInfo(new Date(pastLectures[i - 1].lec.date)).string
+        : null;
+      entry.yearLabel = year !== prevYear ? year : "";
+      entry.isLatest = i === 0;
+    });
+
     if (pastLectures.length === 0) {
       pastContainer.innerHTML = `<p class="empty-note">No past lectures yet. Check back after the first seminar.</p>`;
     } else {
@@ -513,7 +537,10 @@ async function loadSeminarData() {
           pastLectures.slice(INITIAL_SHOW).forEach(entry => {
             const temp = document.createElement("div");
             temp.innerHTML = createPastEntryHTML(entry);
-            pastContainer.insertBefore(temp.firstElementChild, showMoreBtn);
+            // an entry can be a year marker + the talk, so move every child
+            Array.from(temp.children).forEach(el => {
+              pastContainer.insertBefore(el, showMoreBtn);
+            });
           });
           if (window.MathJax) {
             MathJax.typesetPromise([pastContainer]);
