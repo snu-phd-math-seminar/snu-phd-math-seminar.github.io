@@ -207,9 +207,9 @@ function createPastEntryHTML(entry) {
   `;
 }
 
-function createScheduleRowHTML(lec, formattedDate, isPast) {
+function createScheduleRowHTML(lec, formattedDate, isPast, isOlder = false) {
   return `
-    <tr data-topic="${(lec.topic || '').toLowerCase()}">
+    <tr data-topic="${(lec.topic || '').toLowerCase()}"${isOlder ? ' data-older="true"' : ''}>
       <td class="date-cell">${formattedDate}</td>
       <td>${lec.speaker || ""}</td>
       <td>${lec.topic || ""}</td>
@@ -336,31 +336,59 @@ function initGalleryCarousel() {
 }
 
 // ==========================================
-// 6. SCHEDULE FILTERING
+// 6. SCHEDULE: FILTERING + "SHOW EARLIER"
 // ==========================================
-function initFilters() {
+// The current-year table starts collapsed: upcoming talks plus the last few
+// completed ones. Rows before that carry data-older="true" and are revealed
+// by the "Show N earlier" row. Picking a topic filter always searches ALL
+// rows, so a match is never hidden by the collapse.
+function initSchedule(olderCount) {
   const filterBtns = document.querySelectorAll('.filter-btn');
   // Target ALL table rows, including the dynamically generated archived ones
-  const scheduleRows = document.querySelectorAll('.schedule-table tbody tr');
+  const scheduleRows = document.querySelectorAll('.schedule-table tbody tr[data-topic]');
+  const loadRow = document.querySelector('.schedule-load-row');
+  const loadBtn = loadRow ? loadRow.querySelector('button') : null;
+
+  let activeFilter = 'all';
+  let expanded = false;
+
+  function applyScheduleView() {
+    const filterTerms = activeFilter.split(',').map(t => t.trim());
+
+    scheduleRows.forEach(row => {
+      const topicMatch = filterTerms.some(term => row.dataset.topic.includes(term));
+      const matches = activeFilter === 'all' || topicMatch;
+      const hiddenByCollapse =
+        activeFilter === 'all' && !expanded && row.dataset.older === 'true';
+
+      row.style.display = (matches && !hiddenByCollapse) ? '' : 'none';
+    });
+
+    if (loadRow && loadBtn) {
+      // No collapsed rows to reveal while a topic filter is active
+      loadRow.style.display = activeFilter === 'all' ? '' : 'none';
+      loadBtn.textContent = expanded ? 'Show fewer' : `Show ${olderCount} earlier`;
+      loadBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+  }
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const filterString = btn.dataset.filter;
-      // Split comma-separated keywords into an array
-      const filterTerms = filterString.split(',');
-
-      scheduleRows.forEach(row => {
-        const rowTopic = row.dataset.topic;
-        // Check if AT LEAST ONE of the filter terms matches the row's topic
-        const topicMatch = filterTerms.some(term => rowTopic.includes(term.trim()));
-
-        row.style.display = (filterString === 'all' || topicMatch) ? '' : 'none';
-      });
+      activeFilter = btn.dataset.filter;
+      applyScheduleView();
     });
   });
+
+  if (loadBtn) {
+    loadBtn.addEventListener('click', () => {
+      expanded = !expanded;
+      applyScheduleView();
+    });
+  }
+
+  applyScheduleView();
 }
 
 // ==========================================
@@ -382,14 +410,15 @@ async function loadSeminarData() {
     const archiveContainer = document.getElementById("archive-container");
     const galleryGrid = document.getElementById("gallery-grid");
 
-    const INITIAL_SHOW = 3;
+    const INITIAL_SHOW = 3;                // past lectures shown before "Show more"
+    const SCHEDULE_PAST_CONTEXT = 3;       // completed talks kept visible in the schedule
 
     // Sort ascending
     const sorted = data.lectures.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     let upcomingShown = false;
     const pastLectures = [];
-    const scheduleBuckets = {}; // Stores arrays of HTML rows by year
+    const scheduleBuckets = {}; // Stores arrays of { lec, formattedDate, isPast } by year
 
     sorted.forEach(lec => {
       const lecDate = new Date(lec.date);
@@ -418,9 +447,7 @@ async function loadSeminarData() {
       }
 
       // ── SCHEDULE BUCKETING ──
-      scheduleBuckets[lecAcademicYear].push(
-        createScheduleRowHTML(lec, formattedDate, isPast)
-      );
+      scheduleBuckets[lecAcademicYear].push({ lec, formattedDate, isPast });
     });
 
     // ── GALLERY ──
@@ -453,8 +480,28 @@ async function loadSeminarData() {
     }
 
     // ── RENDER MAIN SCHEDULE (Current Year Only) ──
+    const rowsHTML = (rows, olderCount = 0) => rows
+      .map((r, i) => createScheduleRowHTML(r.lec, r.formattedDate, r.isPast, i < olderCount))
+      .join('');
+
+    let olderCount = 0;
     if (scheduleBuckets[currentAcademicYear]) {
-      scheduleBody.innerHTML = scheduleBuckets[currentAcademicYear].join('');
+      const rows = scheduleBuckets[currentAcademicYear];
+
+      // Window = every upcoming talk + the last SCHEDULE_PAST_CONTEXT completed ones
+      const firstUpcoming = rows.findIndex(r => !r.isPast);
+      const anchor = firstUpcoming === -1 ? rows.length : firstUpcoming;
+      olderCount = Math.max(0, anchor - SCHEDULE_PAST_CONTEXT);
+
+      const loadRowHTML = olderCount > 0 ? `
+        <tr class="schedule-load-row">
+          <td colspan="4">
+            <button class="show-more-btn schedule-load-btn" type="button" aria-expanded="false">Show ${olderCount} earlier</button>
+          </td>
+        </tr>
+      ` : '';
+
+      scheduleBody.innerHTML = loadRowHTML + rowsHTML(rows, olderCount);
     } else {
       scheduleBody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No lectures scheduled yet for the ${currentAcademicYear} academic year.</td></tr>`;
     }
@@ -481,7 +528,7 @@ async function loadSeminarData() {
                 </tr>
               </thead>
               <tbody>
-                ${scheduleBuckets[year].join('')}
+                ${rowsHTML(scheduleBuckets[year])}
               </tbody>
             </table>
           </details>
@@ -491,7 +538,7 @@ async function loadSeminarData() {
     }
 
     // Initialize filters AFTER all tables are built
-    initFilters();
+    initSchedule(olderCount);
 
     if (!upcomingShown) {
       upcomingContainer.innerHTML = `
