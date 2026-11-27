@@ -205,6 +205,14 @@
     },
     {
       "date": "2026-12-10",
+      "title": "TBA",
+      "speaker": "Laxmi Kumari",
+      "topic": "Data Science",
+      "abstract_text": "TBA",
+      "notes": ""
+    },
+    {
+      "date": "2026-12-17",
       "title": "Magnetic Monopoles (Part 2)",
       "speaker": "Suhas B. Mahesh",
       "topic": "Mathematical Physics",
